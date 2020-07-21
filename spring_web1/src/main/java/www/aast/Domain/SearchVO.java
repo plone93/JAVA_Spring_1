@@ -1,5 +1,8 @@
 package www.aast.Domain;
 
-public class SearchVO {
+import lombok.Data;
 
+@Data
+public class SearchVO {
+	private String keyword;
 }
