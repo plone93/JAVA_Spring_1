@@ -1,1 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+  <!-- namespce : (패키지>Mapper) 경로  -->
+  <mapper namespace="com.aast.mapper.SearchMapper">
+  	<!-- 게시판 검색 -->
+  	<select id="search" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+  		select * from
+  		(select T.*, row_number() over(order by writedate desc) as rnum from aast T
+  		where boardId = #{boardId} 
+  		and (title like '%'||#{SearchVO.keyword}||'%' 
+  		or content like '%'||#{SearchVO.keyword}||'%'))<!-- 내부 -->
+  		where rnum between #{startNumber} and #{endNumber}
+  	</select>
+  	
+  	<select id="searchCount" parameterType="hashmap" resultType="int">
+  		select count(*) from aast
+  		where boardId = #{boardId}
+  		and (title like '%'||#{SearchVO.keyword}||'%'
+  		or content like '%'||#{SearchVO.keyword}||'%')
+  	</select>
+  	
+  	<!-- 추천검색 -->
+  	<select id="searchUp" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+  		select * from
+  		(select T.*, row_number() over(order by writedate desc) as rnum from aast T
+  		where up <![CDATA[>=]]> #{hitCount} 
+  		and (title like '%'||#{SearchVO.keyword}||'%'
+  		or content like '%'||#{SearchVO.keyword}||'%'))
+  		where rnum between #{startNumber} and #{endNumber}
+  	</select>
+  	
+  	<select id="searchUpCount" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select count(*) from
+		(select * from aast where title like '%'||#{SearchVo.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%')
+		where up <![CDATA[>=]]> #{hitCount}
+  	</select>
+  	
+  	<!-- 비추천 검색 -->
+  	<select id="searchDown" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+  		select * from
+  		(select T.*, row_number() over(order by writedate desc) as rnum from aast T
+  		where down <![CDATA[>=]]> #{hitCount} 
+  		and (title like '%'||#{SearchVO.keyword}||'%'
+  		or content like '%'||#{SearchVO.keyword}||'%'))
+  		where rnum between #{startNumber} and #{endNumber}
+  	</select>
+  	
+  	  <select id="searchDownCount" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select count(*) from
+		(select * from aast where title like '%'||#{SearchVo.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%')
+		where down <![CDATA[>=]]> #{hitCount}
+  	</select>
+  	
+  	<!-- 신고 검색 -->
+  	<select id="searchDown" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+  		select * from
+  		(select T.*, row_number() over(order by writedate desc) as rnum from aast T
+  		where report <![CDATA[>=]]> #{hitCount} 
+  		and (title like '%'||#{SearchVO.keyword}||'%'
+  		or content like '%'||#{SearchVO.keyword}||'%'))
+  		where rnum between #{startNumber} and #{endNumber}
+  	</select>
+  	
+  	  <select id="searchDownCount" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select count(*) from
+		(select * from aast where title like '%'||#{SearchVo.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%')
+		where report <![CDATA[>=]]> #{hitCount}
+  	200</select>
+  	
+  	<!-- 통합검색 -->
+	<select id="searchTotal" parameterType="hashmap" resultType="com.ExamSite.Domain.BoardVO">
+		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from aast T 
+ 		where title like '%'||#{SearchVO.keyword}||'%' or content like '%'||#{SearchVO.keyword}||'%')
+ 		where rnum between #{startNumber} and #{endNumber}	
+	</select>
+	<select id="searchCountTotal" resultType="int">
+		select count(*) from
+		(select * from aast where title like '%'||#{SearchVO.keyword}||'%' or content like '%'||#{SearchVO.keyword}||'%')
+	</select>
+	
+	<!-- 회원관리 검색 -->
+	<select id="searchMember" parameterType="hashmap" resultType="com.ExamSite.Domain.MemberVO">
+		select * from
+		(select T.*, row_number() over(order by memberId) as rnum from aast_member T
+		where memberId like '%'||#{SearchVO.keyword}||'%' or memberName like '%'||#{SearchVO.keyword}||'%')
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	<select id="searchCountMember" resultType="int">
+		select count(*) from
+		(select * from aast_member
+		where memberId like '%'||#{SearchVO.keyword}||'%' or memberName like '%'||#{searchVO.keyword}||'%')
+	</select>
+  </mapper>

@@ -13,151 +13,194 @@ import www.aast.Domain.CountVO;
 
 @Service
 @AllArgsConstructor
-public class BoardServiceImpl implements BoardService {@Override
-	
+public class BoardServiceImpl implements BoardService {
+		
 	BoardMapper board;
 	HashMap<String, Object> map;
+	int startNumber;
+	int endNumber;
 	
+	@Override
 	public BoardVO viewBoard(String boardNumber) {
-		return null;
+		return board.viewBoard(boardNumber);
 	}
 
 	@Override
 	public String selectMemberName(String boardNumber) {
-		// TODO Auto-generated method stub
-		return null;
+		return board.selectMemberName(boardNumber);
 	}
 
 	@Override
 	public void updateReadCount(String boardNumber) {
-		// TODO Auto-generated method stub
-		
+		board.updateReadCount(boardNumber);
 	}
 
 	@Override
 	public void updateUpCount(String boardNumber) {
-		// TODO Auto-generated method stub
-		
+		board.updateUpCount(boardNumber);
 	}
 
 	@Override
 	public void updateDownCount(String boardNumber) {
-		// TODO Auto-generated method stub
-		
+		board.updateDownCount(boardNumber);
 	}
 
 	@Override
 	public void updateReportCount(String boardNumber) {
-		// TODO Auto-generated method stub
-		
+		board.updateReportCount(boardNumber);
 	}
 
 	@Override
 	public int getReadCount(String boardNumber) {
-		// TODO Auto-generated method stub
-		return 0;
+		return board.getReadCount(boardNumber);
 	}
 
 	@Override
 	public CountVO getTotalCount(String boardNumber) {
-		// TODO Auto-generated method stub
-		return null;
+		return board.getTotalCount(boardNumber);
 	}
 
 	@Override
 	public int deleteBoard(String boardNumber) {
-		// TODO Auto-generated method stub
-		return 0;
+		return board.deleteBoard(boardNumber);
 	}
 
 	@Override
 	public int insertBoard(BoardVO boardVO, String boardId) {
-		// TODO Auto-generated method stub
-		return 0;
+		map = new HashMap<String, Object>();
+		map.put("boardVO", boardVO);
+		map.put("boardId", boardId);
+		
+		return board.insertBoard(map);
 	}
 
 	@Override
 	public int updateBoard(BoardVO boardVO, String boardNumber) {
-		// TODO Auto-generated method stub
-		return 0;
+		map = new HashMap<String, Object>();
+		map.put("boardVO", boardVO);
+		map.put("boardNumber", boardNumber);
+		return board.updateBoard(map);
 	}
 
 	@Override
 	public String selectWriter(String boardNumber) {
-		// TODO Auto-generated method stub
-		return null;
+		return board.selectWriter(boardNumber);
 	}
 
 	@Override
 	public List<BoardVO> selectAllBoard(int page, String boardId) {
-		// TODO Auto-generated method stub
-		return null;
+		map = new HashMap<String, Object>();
+		startNumber = (page-1)*10+1;
+		endNumber = page*10;
+		
+		map.put("startNumber", startNumber);
+		map.put("endNumber", endNumber);
+		map.put("boardId", boardId);
+		
+		return board.selectAllBoard(map);
 	}
 
 	@Override
 	public int getBoardCount(String boardId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return board.getBoardCount(boardId);
 	}
 
 	@Override
 	public List<BoardVO> selectAllBoardUp(int page, String boardId, String hitCount) {
-		// TODO Auto-generated method stub
-		return null;
+		map = new HashMap<String, Object>();
+		startNumber = (page-1)*10+1;
+		endNumber = page*10;
+		
+		map.put("startNumber", startNumber);
+		map.put("endNumber", endNumber);
+		map.put("boardId", boardId);
+		map.put("hitCount", hitCount);
+		
+		return board.selectAllBoardUp(map);
 	}
 
 	@Override
 	public int getBoardCountUp(String boardId, String hitCount) {
-		// TODO Auto-generated method stub
-		return 0;
+		map = new HashMap<String, Object>();
+		map.put("boardId", boardId);
+		map.put("hitCount", hitCount);
+		
+		return board.getBoardCountUp(map);
 	}
 
 	@Override
 	public List<BoardVO> selectAllBoardDown(int page, String boardId, String hitCount) {
-		// TODO Auto-generated method stub
-		return null;
+		map = new HashMap<String, Object>();
+		startNumber = (page-1)*10+1;
+		endNumber = page*10;
+		
+		map.put("startNumber", startNumber);
+		map.put("endNumber", endNumber);
+		map.put("boardId", boardId);
+		map.put("hitCount", hitCount);
+		
+		return board.selectAllBoardDown(map);
 	}
 
 	@Override
 	public int geBoardCountDown(String boardId, String hitCount) {
-		// TODO Auto-generated method stub
-		return 0;
+		map = new HashMap<String, Object>();
+		map.put("boardId", boardId);
+		map.put("hitCount", hitCount);
+		
+		return board.getBoardCountDown(map);
 	}
 
 	@Override
 	public List<BoardVO> selectAllBoardReport(int page) {
-		// TODO Auto-generated method stub
-		return null;
+		map = new HashMap<String, Object>();
+		startNumber = (page-1)*10+1;
+		endNumber = page*10;
+		
+		map.put("startNumber", startNumber);
+		map.put("endNumber", endNumber);
+		
+		return board.selectAllBoardReport(map);
 	}
 
 	@Override
 	public int getBoardCountReport() {
-		// TODO Auto-generated method stub
-		return 0;
+		return board.getBoardCountReport();
 	}
 
 	@Override
 	public List<BoardVO> selectAllBoardTotal(int page, String boardId) {
-		// TODO Auto-generated method stub
-		return null;
+		map = new HashMap<String, Object>();
+		startNumber = (page-1)*10+1;
+		endNumber = page*10;
+		
+		map.put("startNumber", startNumber);
+		map.put("endNumber", endNumber);
+		
+		return board.selectAllBoardTotal(map);
 	}
 
 	@Override
 	public int getBoardCountTotal(String boardId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return board.getBoardCountTotal(map);
 	}
 
 	@Override
 	public List<BoardVO> selectAllBoardNotice(int page, String boardId) {
-		// TODO Auto-generated method stub
-		return null;
+		map = new HashMap<String, Object>();
+		startNumber = (page-1)*10+1;
+		endNumber = page*10;
+		
+		map.put("startNumber", startNumber);
+		map.put("endNumber", endNumber);
+		map.put("boardId", boardId);
+		
+		return board.selectAllBoardNotice(map);
 	}
 
 	@Override
 	public int getBoardCountNotice(String boardId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return board.getBoardCountNotice(boardId);
 	}
 
 	@Override

@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aast.Service.BoardService;
+import com.aast.Service.CommentService;
+import com.aast.Service.LoginService;
+import com.aast.Service.MemberService;
+
 import lombok.AllArgsConstructor;
 
 @Controller

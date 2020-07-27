@@ -43,7 +43,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 		</bean>
 		
-		<!-- mapper와 service 객체 스캔 -->
-		<mybatis-spring:scan base-package="com.aast.www.mapper"></mybatis-spring:scan>
-		<context:component-scan base-package="com.aast.www.service"></context:component-scan>
+		<!-- Mapper와 Service 객체 스캔 -->
+		<mybatis-spring:scan base-package="com.aast.www.Mapper"></mybatis-spring:scan>
+		<context:component-scan base-package="com.aast.www.Service"></context:component-scan>
 </beans>

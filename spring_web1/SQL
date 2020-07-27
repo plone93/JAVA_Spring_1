@@ -1,0 +1,108 @@
+create table aast(
+	boardNumber number(30) primary key,
+	boardId varchar2(100) not null,
+	memberId varchar2(100) not null,
+	memberName varchar2(100) not null,
+	title varchar2(100) not null,
+	content varchar2(1000) not null,
+	image varchar2(100),
+	readCount number(30) default 0,
+	commentCount number(30) default 0,
+	up number(30) default 0,
+	down number(30) default 0,
+	report number(30) default 0,
+	writeDate date default sysdate
+	);
+create sequence aast_seq start with 1 increment by 1;
+
+create table aast_comment(
+	commentNumber number(30) primary key,
+	boardNumber number(30) not null,
+	boardId varchar2(100) not null,
+	memberId varchar2(100),
+	memberName varchar2(100) not null,
+	content varchar2(1000) not null,
+	writeDate date default sysdate
+	);
+create sequence aast_comment_seq start with 1 increment by 1;	
+
+create table aast_member(
+	memberNumber number(30) primary key,
+	memberId varchar2(100) not null,
+	memberPass varchar2(100) not null,
+	memberName varchar2(100) not null,
+	memberEmail varchar2(100) not null,
+	name varchar2(20),
+	phoneNumber varvhar(20),
+	address1 varchar(50),
+	address2 varchar(50),
+	signDate date default sysdate
+	);
+	
+create sequence aast_member_seq start with 1 increment by 1;	
+
+create table aast_admin(
+	adminNumber number(30) primary key,
+	adminId varchar2(100) unique not null,
+	adminPass varchar2(100) not null,
+	adminName varchar2(100) not null,
+	adminEmail varchar2(100) not null,
+	signDate date default sysdate
+	);
+	
+create sequence aast_admin_seq start with 1 increment by 1;
+
+insert into KIMINO_RECIPE_admin(admin_num, admin_id, admin_pass, admin_name, admin_email) 
+values(kimino_recipe_admin_seq.nextval, 'admin1234', 'admin1234','admin','aaa@aaa.com');	
+
+create table aast_product(
+	product_num number(10) primary key,
+	product_id varchar2(30) not null,
+	product_name varchar2(200) not null,   //상품 이름
+	price number(30) default 0,  // 상품 가격
+	content varchar2(1000) not null, //상품 설명
+	image varchar2(500), //상품 이미지
+	writedate date default sysdate,
+	board_id varchar2(100)
+);
+alter table kimino_recipe_product add (writedate date default sysdate);
+alter table kimino_recipe_product add (board_id varchar2(100));
+//개선 사항 , 상품번호(product_id)를 만들어서 수동으로 입력하게 해야함
+
+create sequence kimino_recipe_product_seq start with 1 increment by 1;
+//상품관리는 관리자만 가능하므로 따로 작성자 필드를 만들 필요 없음, 조회수 댓글도 필요 없음
+
+
+create table aast_cart(
+	cart_num number(10) primary key, 
+	user_id varchar2(100) not null, //유저 아이디
+	product_id varchar2(30) not null,
+	product_name varchar2(30) not null, // 상품 이름
+	price number(30) default 0, //가격
+	content varchar2(1000) not null, //내용
+	image varchar2(500),  //이미지
+	amount number(30) default 0 // 수량
+);
+
+create sequence kimino_recipe_cart_seq start with 1 increment by 1;
+
+create table aast_orderlist(
+	order_num number(10) primary key, 
+	user_id varchar2(50) not null, 
+	product_id varchar2(30) not null, 
+	product_name varchar2(30) not null, 
+	price number(30) default 0, 
+	amount number(30) default 0, 
+	name varchar2(20) not null,
+	phone_num varchar2(20) not null,
+	address1 varchar2(50) not null,
+	address2 varchar2(50) not null,
+	bank_account varchar2(50) not null,
+	delivery number(5) default 0,
+	image varchar2(50),
+	message varchar2(50),
+	post_num varchar2(50),
+	orderdate date default sysdate	
+);
+
+create sequence kimino_recipe_orderlist_seq start with 1 increment by 1;

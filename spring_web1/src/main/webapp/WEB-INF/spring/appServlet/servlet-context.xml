@@ -40,8 +40,8 @@
 	<!--  -->
 	
 	<!-- 어노테이션이 등록된 메서드를 빈으로 등록  -->
-	<context:component-scan base-package="com.aast.www.controller"></context:component-scan>
-	<context:component-scan base-package="com.aast.www.service"></context:component-scan>	
+	<context:component-scan base-package="com.aast.www.Controller"></context:component-scan>
+	<context:component-scan base-package="com.aast.www.Service"></context:component-scan>	
 	
 	
 </beans:beans>

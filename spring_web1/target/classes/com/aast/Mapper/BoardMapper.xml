@@ -1,1 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace :(패키지 > Mapper) 경로 -->
+<mapper namespace="com.aast.mapper.BoardMapper">
+	<!-- 기본게시판 -->
+	<select id="selectAllBoard" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.*, row_number() over(order by writeDate desc) as rnum from aast T where boardId = #{boardId})
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	
+	<select id="viewBoard" resultType="com.aast.Domain.BoardVO">
+		select * from aast
+		where boardNumber = #{boardNumber}
+	</select>
+	
+	<update id="updateReadCount">
+		update aast set readcount = readcount+1
+		where boardNumber = #{boardNumber}
+	</update>
+	
+	<update id="updateUpCount">
+		update aast set up = up + 1
+		where boardNumber = #{boardNumber}
+	</update>
+	
+	<update id="updateDownCount">
+		update aast set down = down + 1
+		where boardNumber = #{boardNumber}
+	</update>
+	
+	<update id="updateReportCount">
+		update aast set report = report + 1
+		where boardNumber = #{boardNumber}
+	</update>
+	
+	<select id="getReadCount">
+		select readcount from aast
+		where boardNumber = #{boardNumber}
+	</select>
+	
+	<select id="getTotalCount" resultType="com.aast.Domain.CountVO">
+		select up, down, report from aast
+		where boardNumber = #{boardNumber}
+	</select>
+	
+	<delete id="deleteBoard">
+		delete from aast
+		where boardNumber = #{boardNumber}
+	</delete>
+	
+	<select id="getBoardCount" resultType="int">
+		select count(*) from aast
+		where boardId = #{boardId}
+	</select>
+	
+	<insert id="insertBoard" parameterType="hashmap">
+		inset into aast(boardNumber, boardId, memberId, memberName, title, content, image)
+		values(aast_seq.nextval, #{BoardVO.boardId}, #{BoardVO.memberId}, #{BoardVO.memberName}, #{BoardVO.title}, #{BoardVO.content}, #{BoardVO.image})
+	</insert>
+	
+	<update id="updateBoard">
+		update aast set title = #{BoardVO.title}, content = #{BoardVO.content}, image = #{BoardVO.image}
+		where boardNumber = #{BoardVO.boardNumber}
+	</update>
+	
+	<select id="selectWriter" resultType="String">
+		select memberId from aast
+		where BoardNumber = #{boardNumber}
+	</select>
+	
+	<!-- 추천게시판 -->
+	<select id="selectAllBoardUp" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.*, row_number() over(order by writedate desc) as rnum from aast up <![CDATA[>]]> #{hitCount})
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	
+	<select id="getBoardCountUp" parameterType="hashmap" resultType="int">
+		select count(*) from aast
+		where up <![CDATA[>]]> #{hitCount}
+	</select>
+	
+	<!-- 비추천게시판 -->
+	<select id="selectAllBoardDown" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.*, row_number() over(order by writedate desc) as rnum from aast down <![CDATA[>]]> #{hitCount})
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	
+	<select id="getBoardCountDown" parameterType="hashmap" resultType="int">
+		select count(*) from aast
+		where down <![CDATA[>]]> #{hitCount}
+	</select>
+	
+	<!-- 통합게시판 -->
+	<select id="selectAllBoardTotal" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.* row_number() over(order by writedate desc) as rnum from aast T
+		where title like '%'||#{SearchVO.keyword}||'%' or content  like '%'||#{SearchVO.keyword}||'%')
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	
+	<select id="getBoardCountTotal" resultType="int">
+		select count(*) from
+		(select * from aast where title like '%'||#{SearchVO.keyword}||'%' or content like '%'||#{SearchVO.keyword}||'%')
+	</select>
+	
+	<!-- 신고게시판 -->
+	<select id="selectAllBoardReport" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.*, row_number() over(order by report desc) as rnum from aast T)
+		where report <![CDATA[>=]]> 1)
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	
+	<select id="getBoardCountReport" resultType="int">
+		select count(*) from aast
+		where report <![CDATA[>=]]> 1
+	</select>
+	
+	<!-- 공지사항 게시판 -->
+	<select id="selectAllBoardNotice" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.*, row_number() over(order by writedate desc) as rnum from aast T
+		where boardId = #{boardId})
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	
+	<select id="getBoardCountNotice" resultType="int">
+		select count(*) from aast
+		where boardId = #{boardId}
+	</select>
+	
+	<!-- 유저관리 게시판 -->
+	<select id="selectAllBoardMember" parameterType="hashmap" resultType="com.aast.Domain.MemberVO">
+		select * from
+		(select T.*, row_number() over(order by writedate desc) as rnum from aastmember T)
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	
+	<select id="getBoardCountMember">
+		select count(*) from aastmember
+	</select>
+	
+	<!-- 게시판 드롭메뉴 -->
+	<select id="selectBoardComment" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.*, row_number() over(order by commentcount desc) as rnum from aast T where boardId = #{boardId})
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	<select id="selectBoardReadCount" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.* row_number() over(order by readcount desc) as rnum from aast T where boardId = #{boardId})
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	<select id="selectBoardUp" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.* row_number() over(order by up desc) as rnum from aast T where boardId = #{boardId})
+		where rnum between #{startNumber} and #{endNumber}
+	</select>	
+		<select id="selectBoardDown" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.* row_number() over(order by down desc) as rnum from aast T where boardId = #{boardId})
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	
+	
+	<!-- 마이페이지 -->
+	
+	<!-- 내가 작성한 글 -->
+	<select id="selectMyWriteList" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
+		select * from
+		(select T.*, row_number() over(order by writedate desc) as rnum from aast T where memberId = #{memberId})
+		where rnum between #{startNumber} and #{endNumber}
+	</select>
+	<select id="selectMyWriteCount" resultType="int">
+		select count(*) from aast
+		where memberId = #{memberId}
+	</select>
+</mapper>

@@ -1,1 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+  <!-- namespce : (패키지>Mapper) 경로  -->
+ <mapper namespace="com.aast.mapper.CommentMapper">
+ 	<!-- 댓글 -->
+ 	<insert id="insertComment" parameterType="hashmap">
+ 		insert into aast(commentNumber, boardNumber, boardId, memberId, memberName, content)
+ 		values(examsitecomment_seq.nextval, #{commentVO.boardNumber}, #{commentVO.boardId}, #{commentVO.memberId}, #{commentVO.memberName}, #{commentVO.content})
+ 	</insert>
+ 	
+ 	<select id="viewComment" resultType="com.aast.Domain.CommentVO">
+ 		select * from aast_comment
+ 		where commentNumber = #{commentNumber}
+ 	</select>
+ 	
+ 	<update id="updateComment" parameterType="hashmap">
+ 		update aast_comment set content = #{commentVO.content}
+ 		where commentNumber = #{commentNumber}
+ 	</update>
+ 	
+ 	<delete id="deleteComment">
+ 		delete from aast_comment
+ 		where commentNumber = #{commentNumber}
+ 	</delete>
+ 	
+ 	<update id="updateCommentCount">
+ 		update aast set commentCount = #{commentCount}
+ 		where boardNumber = #{boardNumber}
+ 	</update>
+ 	
+ 	<select id="selectComment" resultType="com.aast.Domain.CommentVO">
+ 		select * from
+ 		(select * from aast_comment order bt writeDate asc)
+ 		where boardNumber = #{boardNumber}
+ 	</select>
+ 	
+ 	<select id="getcommentCount" resultType="int">
+ 		select count(*) from aast_comment
+ 		where boardNumber = #{boardNumber}
+ 	</select>
+ 
+ </mapper>

@@ -1,1 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+  <!-- namespce : (패키지>Mapper) 경로  -->
+  <mapper namespace="com.aast.mapper.MemberMapper">
+  	<insert id="insertMember" parameterType="hashmap">
+  		insert into aast_member(memberNumber, memberId, memberPass, memberName, memberEmail)
+  	values(aast_member_seq.nextval, #{memberVO.memberId}, #{memberVO.memberPass}, #{memberVO.memberName}, #{memberVO.memberEmail})
+  	</insert>
+ 	
+ 	<select id="getMember" resultType="com.aast.Domain.MemberVO">
+ 		select * from aast_member
+ 		where memberId = #{memberId}
+ 	</select>
+ 	
+ 	<update id="updateMember" parameterType="hashmap">
+ 		update aast_member
+ 		set memberPass = #{memberVO.memberPass}, memberName = #{memberVO.name}, memberEmail = {memberVO.memberEmail}
+ 		where memberNumber = #{memberNumber}
+ 	</update>
+ 	
+ 	<select id="getMemberPass" resultType="String">
+ 		select memberpass from aast_member
+ 		where memberNumber = #{memberNumber }
+ 	</select>
+ 	
+ 	<delete id="deleteMember">
+ 		delete from aast_member
+ 		where memberNumber = #{memberNumber}
+ 	</delete>
+ 	
+ 	<select id="checkId" resultType="int">
+ 		select count(*) from aast_member
+ 		where memberId = #{id}
+ 	</select>
+ 	
+ 	<select id="checkEmail" resultType="int">
+ 		select count(*) from aast_member
+ 		where memberEmail = #{memberEmail}
+ 	</select>
+ 	
+ 	<select id="checkName" resultType="int">
+ 		select count(*) from aast_member
+ 		where memberName = #{name}
+ 	</select>
+ 	
+ 	<update id="updateEmail" parameterType="hashmap">
+ 		update aast_member set memberEmail = #{memberEmail}
+ 		where memberNumber = #{memberNumber}
+ 	</update>
+ 	
+ 	<update id="updateName" parameterType="hashmap">
+ 		update aast_member set memberName = #{memberName}
+ 		where memberNumber = #{memberNumber}
+ 	</update>
+ 	
+ 	<update id="updatePass" parameterType="hashmap">
+		update aast_member set memberPass = #{memberPass}
+		where memberNumber = #{memberNumber} 	
+ 	</update>
+ 	
+ 	<!-- 관리자 -->
+ 	<select id="getAdmin" resultType="com.aast.Domain.AdminVO">
+ 		select * frm aast_Admin
+ 		where adminId = #{adminId}
+ 	</select>
+ 	
+ 	<select id="selectAllMembber" parameterType="hashmap" resultType="com.aast.Domain.MemberVO">
+ 		select * from
+ 		(select T.*, row_number() over(order by memberId asc) as rnum from aast_member T)
+ 		where rnum between #{startNumber] and #{endNumber}
+ 	</select>
+ 	
+ 	<select id="getMemberCount" resultType="int">
+ 		select count(*) from aast_member
+ 	</select>
+ 	
+ 	<select id="updateAdminEmail" parameterType="hashmap">
+ 		update aast_admin set adminEmail = #{adminEmail}
+ 		where adminNumber = #{adminNumber}
+ 	</select>
+ 	
+ 	<update id="updateAdminName" parameterType="hashmap">
+ 		update aast_admin set adminName = #{adminName}
+ 		where adminNumber = #{adminNumber}
+ 	</update>
+ 	
+ 	<update id="updateAdminPass" parameterType="hashmap">
+ 		update aast_admin set adminPass = #{adminPass}
+ 		where adminNumber = #{adminNumber}
+ 	</update>
+ 	
+ 	<select id="checkAdminEmail" resultType="int">
+ 		select count(*) from aast_admin
+ 		where adminEmail = #{adminEmail}
+ 	</select>
+ 	
+ 	<update id="updateName" parameterType="hashmap">
+ 		update aast_member set addressA = #{addressA}, addressB = #{adressB}
+ 		where memberNumber = #{memberNumber}
+ 	</update>
+ 	
+ 	<update id="updatePhoneNumber" parameterType="hashmap">
+ 		update aast_member set phoneNumber = #{phoneNumber}
+ 		where memberNumber = #{memberNumber}
+ 	</update>
+  </mapper>
