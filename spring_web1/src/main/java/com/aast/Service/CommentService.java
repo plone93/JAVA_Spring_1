@@ -6,7 +6,7 @@ import www.aast.Domain.CommentVO;
 
 public interface CommentService {
 	/*댓글*/
-	public int insertComment(CommentVO commentVO);
+	public int writeComment(CommentVO commentVO);
 	public CommentVO viewComment(String commentNumber);
 	public void updateComment(CommentVO commentVO, String commentNumber);
 	public void updateCommentCount(int commentCount, String boardNumber);

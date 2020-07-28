@@ -13,7 +13,7 @@ public class CommentServiceImpl implements CommentService{
 	HashMap<String, Object> map;
 	
 	@Override
-	public int insertComment(CommentVO commentVO) {
+	public int writeComment(CommentVO commentVO) {
 		map = new HashMap<String, Object>();
 		map.put("commentVO", commentVO);
 		

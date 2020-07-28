@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import com.aast.Service.CommentService;
 import lombok.AllArgsConstructor;
 import www.aast.Domain.BoardVO;
 import www.aast.Domain.CommentVO;
+import www.aast.Domain.CountVO;
 import www.aast.Domain.PageVO;
 
 @Controller
@@ -36,6 +39,8 @@ public class BoardController {
 	
 	HttpSession session;
 	HttpServletRequest request;
+	HttpServletResponse response;
+	
 	Model model;
 	MultipartFile file;
 	
@@ -294,6 +299,8 @@ public class BoardController {
 		
 		boardVO.setBoardId(boardId);
 		board.insertBoard(boardVO, boardId);
+		
+		/*jsp로 변수를 전송*/
 		model.addAttribute("boardId", boardId);
 		
 		return url;
@@ -301,37 +308,191 @@ public class BoardController {
 	
 	//게시글 수정
 	@RequestMapping(value="editBoard", method = {RequestMethod.GET})
-	public String editBoard() {
+	public String editBoard(@RequestParam("boardNumber")String boardNumber,
+							@RequestParam("boardId")String boardId,
+							@RequestParam("page")String page) {
+		String url = "";/*날아갈 주소(경로)*/
+		BoardVO boardVO = board.viewBoard(boardNumber);
 		
+		/*jsp로 변수를 전송*/
+		model.addAttribute("boardVO", boardVO);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("page", page);
+		
+		return url;
 	}
 	
 	//게시글 수정 완료
 	@RequestMapping(value="editedBoard", method = {RequestMethod.GET})
-	public String editedBoard() {
+	public String editedBoard(@RequestParam("boardId")String boardId,
+							  @RequestParam("boardNumber")String boardNumber,
+							  @RequestParam("page")String page,
+							  BoardVO boardVO) {
+		String url = "";/*날아갈 주소(경로)*/
+		int result = board.updateBoard(boardVO, boardNumber);
 		
+		if(result == 1) {/* 1:업데이트 성공*/
+			model.addAttribute("message", "갱신완료");
+		} else { /*업데이트 실패*/
+			model.addAttribute("message", "갱신실패");
+		}
+		
+		/*jsp로 변수를 전송*/
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("boardNumber", boardNumber);
+		model.addAttribute("page", page);
+		
+		return url;
 	}
 	
 	//게시글 삭제
 	@RequestMapping(value="deleteBoard", method = {RequestMethod.GET})
-	public String deleteBoard() {
+	public String deleteBoard(@RequestParam("boardId")String boardId,
+							  @RequestParam("boardNumber")String boardNumber,
+							  @RequestParam("page")String page) {
+		String url = "";/*날아갈 주소(경로)*/
+		board.deleteBoard(boardNumber);
 		
+		/*jsp로 변수를 전송*/
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("page", page);
+		model.addAttribute("message", "실패했습니다");
+		
+		return url;
 	}
 	
 	//게시글 추천
 	@RequestMapping(value="upBoard", method = {RequestMethod.GET})
-	public String upBoard() {
+	public String upBoard(@RequestParam("boardId")String boardId,
+						  @RequestParam("boardNumber")String boardNumber,
+						  @RequestParam("page")String page) {
+		String url = "";/*날아갈 주소(경로)*/
 		
+		/*쿠키*/
+		boolean found = false;
+		Cookie info = null;
+		Cookie[] cookies = request.getCookies();/*쿠키를 웹브라우저에서 전부 가져와서 리스트에 넣음*/
+		
+		/*쿠키 유무 검사*/
+		for(int i=0; i < cookies.length; i++) {
+			info = cookies[i];
+			
+			/*해당 게시글과 동일한 쿠키가 있는지 검사*/
+			if(info.getName().equals("aastUp"+boardNumber)) {
+				found = true; /*동일한 쿠키를 찾음*/
+				break;
+			}
+		}
+		
+		String str = ""+System.currentTimeMillis();
+		
+		if(found) {/*쿠키가 있다면 알림창, found가 true라면 아래 message를 띄움*/
+			model.addAttribute("message", "이미 클릭함");
+		} else if(!found) {/*쿠키가 없다면*/
+			info = new Cookie("aastUp"+boardNumber, str);/*두번째 변수 값을 첫번째 변수에 저장(이름, 값)*/
+			info.setMaxAge(24*60*60);/*쿠키 유효시간 설정 : 1일(24시간*60분*60초)*/
+			response.addCookie(info); /*쿠키 객체를 웹브라우저로 보냄*/
+			board.updateUpCount(boardNumber);
+		}
+		
+		CountVO countVO = board.getTotalCount(boardNumber);
+		
+		/*jsp로 변수를 전송*/
+		model.addAttribute("countVO", countVO);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("boardNumber", boardNumber);
+		model.addAttribute("page", page);
+		
+		return url;
 	}
 	
 	//게시글 비추천
 	@RequestMapping(value="downBoard", method = {RequestMethod.GET})
-	public String downBoard() {
+	public String downBoard(@RequestParam("boardNumber")String boardNumber,
+						    @RequestParam("boardId")String boardId,
+						    @RequestParam("page")String page) {
+		String url = "";/*날아갈 주소(경로)*/
 		
+		/*쿠키*/
+		boolean found = false;
+		Cookie info = null;
+		Cookie[] cookies = request.getCookies();/*쿠키를 웹브라우저에서 전부 가져와서 리스트에 넣음*/
+		
+		/*쿠키 유무 검사*/
+		for(int i=0; i < cookies.length; i++) {
+			info = cookies[i];
+			
+			/*해당 게시글과 동일한 쿠키가 있는지 검사*/
+			if(info.getName().equals("aastDown"+boardNumber)) {
+				found = true; /*동일한 쿠키를 찾음*/
+				break;
+			}
+		}
+		
+		String str = ""+System.currentTimeMillis();
+		
+		if(found) {/*쿠키가 있다면 알림창, found가 true라면 아래 message를 띄움*/
+			model.addAttribute("message", "이미 클릭함");
+		} else if(!found) {/*쿠키가 없다면*/
+			info = new Cookie("aastDown"+boardNumber, str);/*두번째 변수 값을 첫번째 변수에 저장(이름, 값)*/
+			info.setMaxAge(24*60*60);/*쿠키 유효시간 설정 : 1일(24시간*60분*60초)*/
+			response.addCookie(info); /*쿠키 객체를 웹브라우저로 보냄*/
+			board.updateDownCount(boardNumber);
+		}
+		
+		CountVO countVO = board.getTotalCount(boardNumber);
+		
+		/*jsp로 변수를 전송*/
+		model.addAttribute("countVO", countVO);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("boardNumber", boardNumber);
+		model.addAttribute("page", page);
+		
+		return url;
 	}
 	
 	//게시글 신고
 	@RequestMapping(value="reportBoard", method = {RequestMethod.GET})
-	public String reportBoard() {
+	public String reportBoard(@RequestParam("boardNumber")String boardNumber,
+							  @RequestParam("boardId")String boardId,
+							  @RequestParam("page")String page) {
+		String url = "";/*날아갈 주소(경로)*/
 		
+		/*쿠키*/
+		boolean found = false;
+		Cookie info = null;
+		Cookie[] cookies = request.getCookies();/*쿠키를 웹브라우저에서 전부 가져와서 리스트에 넣음*/
+		
+		/*쿠키 유무 검사*/
+		for(int i=0; i < cookies.length; i++) {
+			info = cookies[i];
+			
+			/*해당 게시글과 동일한 쿠키가 있는지 검사*/
+			if(info.getName().equals("aastReport"+boardNumber)) {
+				found = true; /*동일한 쿠키를 찾음*/
+				break;
+			}
+		}
+		
+		String str = ""+System.currentTimeMillis();
+		
+		if(found) {/*쿠키가 있다면 알림창, found가 true라면 아래 message를 띄움*/
+			model.addAttribute("message", "이미 클릭함");
+		} else if(!found) {/*쿠키가 없다면*/
+			info = new Cookie("aastReport"+boardNumber, str);/*두번째 변수 값을 첫번째 변수에 저장(이름, 값)*/
+			info.setMaxAge(24*60*60);/*쿠키 유효시간 설정 : 1일(24시간*60분*60초)*/
+			response.addCookie(info); /*쿠키 객체를 웹브라우저로 보냄*/
+			board.updateReportCount(boardNumber);
+		}
+		
+		CountVO countVO = board.getTotalCount(boardNumber);
+		
+		/*jsp로 변수를 전송*/
+		model.addAttribute("countVO", countVO);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("boardNumber", boardNumber);
+		model.addAttribute("page", page);
+		
+		return url;
 	}
 }
