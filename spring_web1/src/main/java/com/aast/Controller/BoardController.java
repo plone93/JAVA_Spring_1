@@ -133,8 +133,8 @@ public class BoardController {
 		pageVO.setPage(page);
 		
 		List<BoardVO> boardList = board.selectBoardReadCount(page, boardId);/*게시글을 저장할 리스트 생성*/
-	//	pageVO.setTotalCount(board.getBoardCount(boardId));
-		boardCount = board.getBoardCount(boardId);
+		pageVO.setTotalCount(board.getBoardCount(boardId));
+		boardCount = pageVO.getTotalCount();
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
@@ -173,7 +173,7 @@ public class BoardController {
 	//	pageVO.setTotalCount(board.getBoardCount(boardId));
 		boardCount = board.getBoardCount(boardId);
 		
-		/*jsp로 변수를 전송*/
+		/*jsp로 객체를 전송*/
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("pageVO", pageVO);
@@ -211,7 +211,7 @@ public class BoardController {
 	//	pageVO.setTotalCount(board.getBoardCount(boardId));
 		boardCount = board.getBoardCount(boardId);
 		
-		/*jsp로 변수를 전송*/
+		/*jsp로 객체를 전송*/
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("pageVO", pageVO);
@@ -254,7 +254,7 @@ public class BoardController {
 		content = content.replace("\r\n", "<br>"); /*기존 해당 문자열 -> 해당 문자열로 변환*/
 		boardVO.setContent(content);
 		
-		/*jsp로 변수를 전송*/
+		/*jsp로 객체를 전송*/
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("readCount", readCount);
 		model.addAttribute("boardVO", boardVO);
@@ -300,7 +300,7 @@ public class BoardController {
 		boardVO.setBoardId(boardId);
 		board.insertBoard(boardVO, boardId);
 		
-		/*jsp로 변수를 전송*/
+		/*jsp로 객체를 전송*/
 		model.addAttribute("boardId", boardId);
 		
 		return url;
@@ -314,7 +314,7 @@ public class BoardController {
 		String url = "";/*날아갈 주소(경로)*/
 		BoardVO boardVO = board.viewBoard(boardNumber);
 		
-		/*jsp로 변수를 전송*/
+		/*jsp로 객체를 전송*/
 		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("page", page);
@@ -337,7 +337,7 @@ public class BoardController {
 			model.addAttribute("message", "갱신실패");
 		}
 		
-		/*jsp로 변수를 전송*/
+		/*jsp로 객체를 전송*/
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("boardNumber", boardNumber);
 		model.addAttribute("page", page);
@@ -353,7 +353,7 @@ public class BoardController {
 		String url = "";/*날아갈 주소(경로)*/
 		board.deleteBoard(boardNumber);
 		
-		/*jsp로 변수를 전송*/
+		/*jsp로 객체를 전송*/
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("page", page);
 		model.addAttribute("message", "실패했습니다");
@@ -397,7 +397,7 @@ public class BoardController {
 		
 		CountVO countVO = board.getTotalCount(boardNumber);
 		
-		/*jsp로 변수를 전송*/
+		/*jsp로 객체를 전송*/
 		model.addAttribute("countVO", countVO);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("boardNumber", boardNumber);
@@ -442,7 +442,7 @@ public class BoardController {
 		
 		CountVO countVO = board.getTotalCount(boardNumber);
 		
-		/*jsp로 변수를 전송*/
+		/*jsp로 객체를 전송*/
 		model.addAttribute("countVO", countVO);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("boardNumber", boardNumber);
@@ -487,7 +487,7 @@ public class BoardController {
 		
 		CountVO countVO = board.getTotalCount(boardNumber);
 		
-		/*jsp로 변수를 전송*/
+		/*jsp로 객체를 전송*/
 		model.addAttribute("countVO", countVO);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("boardNumber", boardNumber);

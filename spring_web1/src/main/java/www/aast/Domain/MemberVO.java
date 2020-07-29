@@ -10,11 +10,10 @@ public class MemberVO {
 	private String memberId;
 	private String memberPass;
 	private String memberName;
+	private String memberNickName;
 	private String memberEmail;
-	private Timestamp signDate;
-	
-	private String name;
 	private String phoneNumber;
-	private String address1;
-	private String address2;
+	private String addressA;
+	private String addressB;
+	private Timestamp signDate;
 }

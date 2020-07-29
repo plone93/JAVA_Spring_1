@@ -4,6 +4,6 @@ public interface LoginService {
 	
 	
 	/*로그인*/
-	public int loginMember(String id, String pass);
-	public int loginAdmin(String id, String pass);
+	public int loginMember(String memberId, String memberPass);
+	public int loginAdmin(String adminId, String adminPass);
 }

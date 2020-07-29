@@ -17,9 +17,9 @@ public interface MemberService {
 	public int checkName(String memberName);
 	public int updateEmail(String memberNumber, String memberEmail);
 	public int updatePass(String memberNumber, String memberPass);
-	public int updateName(int memberNumber, String memberName);
-	public int updateAddress(int memberNumer, String addressA, String addressB);
-	public int updatePhoneNumber(int memberNumber, String phoneNumber);
+	public int updateName(String memberNumber, String memberName);
+	public int updateAddress(String memberNumer, String addressA, String addressB);
+	public int updatePhoneNumber(String memberNumber, String phoneNumber);
 	
 	/*관리자*/
 	public AdminVO getAdmin(String adminNumber);
