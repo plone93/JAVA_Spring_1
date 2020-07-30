@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data	
 public class CommentVO {
-	private String commentNumber;// int
+	private int commentNumber;
 	private String boardNumber;
 	private String boardId;
 	private String memberId;

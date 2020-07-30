@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class BoardVO {
-	private String boardNumber; // int
+	private int boardNumber; 
 	private String boardId;
 	private String memberId;
 	private String memberName;

@@ -136,6 +136,7 @@ public class BoardController {
 		pageVO.setTotalCount(board.getBoardCount(boardId));
 		boardCount = pageVO.getTotalCount();
 		
+		/*jsp로 객체를 전송*/
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("pageVO", pageVO);
@@ -170,7 +171,7 @@ public class BoardController {
 		pageVO.setPage(page);/*페이지 저장*/
 		
 		List<BoardVO> boardList = board.selectBoardUp(page, boardId);/*게시글을 저장할 리스트 생성*/
-	//	pageVO.setTotalCount(board.getBoardCount(boardId));
+		pageVO.setTotalCount(board.getBoardCount(boardId));
 		boardCount = board.getBoardCount(boardId);
 		
 		/*jsp로 객체를 전송*/

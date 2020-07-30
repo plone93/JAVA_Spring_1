@@ -21,7 +21,7 @@ public interface MemberService {
 	public int updateAddress(String memberNumer, String addressA, String addressB);
 	public int updatePhoneNumber(String memberNumber, String phoneNumber);
 	
-	/*관리자*/
+	/*관리자*/ 
 	public AdminVO getAdmin(String adminNumber);
 	public int checkAdminEmail(String adminEmail);
 	public int updateAdminEmail(String adminNumber, String adminEamil);

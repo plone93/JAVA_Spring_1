@@ -37,6 +37,7 @@ public class AdminController {
 							   Model model) {
 		String url = "redirect:/main";
 		int result = 0;
+		return url;
 	}
 	
 	//관리자 이메일 갱신
