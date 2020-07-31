@@ -3,16 +3,16 @@ package com.aast.Mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import www.aast.Domain.AdminVO;
-import www.aast.Domain.MemberVO;
+import com.aast.Domain.AdminVO;
+import com.aast.Domain.MemberVO;
 
 public interface MemberMapper {
 	/*멤버 검색*/
 	public int insertMember(HashMap<String, Object> map);//회원가입
-	public MemberVO getMember(String MemberNumber);//회원정보수정창에 띄울 가입된 정보
+	public MemberVO getMember(String memberId);//회원정보수정창에 띄울 가입된 정보
 	public int updateMember(HashMap<String, Object> map);//회원정보수정 갱신
-	public String getMemberPass(String MemberNumber);//회원타로티 시 패스워드 인증
-	public int deleteMember(String MemberNumber);//회원탈퇴
+	public String getMemberPass(int memberNumber);//회원타로티 시 패스워드 인증
+	public int deleteMember(int memberNumber);//회원탈퇴
 	public int checkId(String id);//회원가입 시 아이디 중복확인
 	public int checkEmail(String MemberEmail);//이메일 중복확인 체크
 	public int checkName(String name);//닉네임 중복 체크

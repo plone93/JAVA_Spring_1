@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.aast.Domain.BoardVO;
+import com.aast.Domain.PageVO;
+import com.aast.Domain.SearchVO;
 import com.aast.Service.BoardService;
 import com.aast.Service.CommentService;
 import com.aast.Service.LoginService;
@@ -19,9 +22,6 @@ import com.aast.Service.MemberService;
 import com.aast.Service.SearchService;
 
 import lombok.AllArgsConstructor;
-import www.aast.Domain.BoardVO;
-import www.aast.Domain.PageVO;
-import www.aast.Domain.SearchVO;
 
 @Controller
 @AllArgsConstructor

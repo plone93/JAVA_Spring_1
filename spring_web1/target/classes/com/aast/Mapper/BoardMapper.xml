@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace :(패키지 > Mapper) 경로 -->
-<mapper namespace="com.aast.mapper.BoardMapper">
+<mapper namespace="com.aast.Mapper.BoardMapper">
 	<!-- 기본게시판 -->
 	<select id="selectAllBoard" parameterType="hashmap" resultType="com.aast.Domain.BoardVO">
 		select * from

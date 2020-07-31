@@ -3,11 +3,17 @@ package com.aast.Service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.aast.Domain.AdminVO;
+import com.aast.Domain.MemberVO;
+import com.aast.Mapper.BoardMapper;
 import com.aast.Mapper.MemberMapper;
 
-import www.aast.Domain.AdminVO;
-import www.aast.Domain.MemberVO;
+import lombok.AllArgsConstructor;
 
+@Service
+@AllArgsConstructor
 public class MemberServiceImpl implements MemberService{
 	
 	MemberMapper member;
@@ -27,7 +33,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int updateMember(MemberVO memberVO, String memberNumber) {
+	public int updateMember(MemberVO memberVO, int memberNumber) {
 		map = new HashMap<String, Object>();
 		map.put("memberVO", memberVO);
 		map.put("memberNumber", memberNumber);
@@ -36,12 +42,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String getMemberPass(String memberNumber) {
+	public String getMemberPass(int memberNumber) {
 		return member.getMemberPass(memberNumber);
 	}
 
 	@Override
-	public int deleteMember(String memberNumber) {
+	public int deleteMember(int memberNumber) {
 		return member.deleteMember(memberNumber);
 	}
 
@@ -61,7 +67,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int updateEmail(String memberNumber, String memberEmail) {
+	public int updateEmail(int memberNumber, String memberEmail) {
 		map = new HashMap<String, Object>();
 		map.put("memberNumber", memberNumber);
 		map.put("memberEmail", memberEmail);
@@ -70,7 +76,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int updatePass(String memberNumber, String memberPass) {
+	public int updatePass(int memberNumber, String memberPass) {
 		map = new HashMap<String, Object>();
 		map.put("memberNumber", memberNumber);
 		map.put("memberPass", memberPass);
@@ -107,7 +113,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public AdminVO getAdmin(String adminNumber) {
+	public AdminVO getAdmin(int adminNumber) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -119,19 +125,19 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int updateAdminEmail(String adminNumber, String adminEamil) {
+	public int updateAdminEmail(int adminNumber, String adminEamil) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateAdminName(String adminNumber, String adminName) {
+	public int updateAdminName(int adminNumber, String adminName) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateAdminPass(String adminNumber, String adminPass) {
+	public int updateAdminPass(int adminNumber, String adminPass) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

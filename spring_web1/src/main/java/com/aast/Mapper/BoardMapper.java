@@ -3,50 +3,50 @@ package com.aast.Mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import www.aast.Domain.BoardVO;
-import www.aast.Domain.CountVO;
-import www.aast.Domain.MemberVO;
+import com.aast.Domain.BoardVO;
+import com.aast.Domain.CountVO;
+import com.aast.Domain.MemberVO;
 
 public interface BoardMapper {
 	
 	/*기능*/
-	public BoardVO viewBoard(String boardNumber);
-	public String selectMemberName(String boardNumber);
-	public void updateReadCount(String boardNumber);
-	public void updateUpCount(String boardNumber);
-	public void updateDownCount(String boardNumber);
-	public void updateReportCount(String boardNumber);
-	public int getReadCount(String boardNumber);
-	public CountVO getTotalCount(String boardNumber);
-	public int deleteBoard(String boardNumber);
+	public BoardVO viewBoard(BoardVO boardVO);
+	public String selectMemberName(BoardVO boardVO);
+	public void updateReadCount(BoardVO boardVO);
+	public void updateUpCount(BoardVO boardVO);
+	public void updateDownCount(BoardVO boardVO);
+	public void updateReportCount(BoardVO boardVO);
+	public int getReadCount(BoardVO boardVO);
+	public CountVO getTotalCount(BoardVO boardVO);
+	public int deleteBoard(BoardVO boardVO);
 	
-	public int insertBoard(HashMap<String, Object> map);
-	public int updateBoard(HashMap<String, Object> map);
-	public String selectWriter(String boardNumber);
+	public int insertBoard(BoardVO boardVO);
+	public int updateBoard(BoardVO boardVO);
+	public String selectWriter(BoardVO boardVO);
 	
 	/*기본게시판*/
-	public List<BoardVO> selectAllBoard(HashMap<String, Object> map);
-	public int getBoardCount(String boardId);
+	public List<BoardVO> selectAllBoard(BoardVO boardVO);
+	public int getBoardCount(BoardVO boardVO);
 	
 	/*추천게시판*/
-	public List<BoardVO> selectAllBoardUp(HashMap<String, Object> map);
-	public int getBoardCountUp(HashMap<String, Object> map);
+	public List<BoardVO> selectAllBoardUp(BoardVO boardVO);
+	public int getBoardCountUp(BoardVO boardVO);
 	
 	/*비추천게시판*/
-	public List<BoardVO> selectAllBoardDown(HashMap<String, Object> map);
-	public int getBoardCountDown(HashMap<String, Object> map);
+	public List<BoardVO> selectAllBoardDown(BoardVO boardVO);
+	public int getBoardCountDown(BoardVO boardVO);
 	
 	/*통합게시판*/
-	public List<BoardVO> selectAllBoardTotal(HashMap<String, Object> map);
-	public int getBoardCountTotal(HashMap<String, Object> map);
+	public List<BoardVO> selectAllBoardTotal(BoardVO boardVO);
+	public int getBoardCountTotal(BoardVO boardVO);
 	
 	/*신고게시판*/
-	public List<BoardVO> selectAllBoardReport(HashMap<String, Object> map);
+	public List<BoardVO> selectAllBoardReport(BoardVO boardVO);
 	public int getBoardCountReport();
 	
 	/*공지사항게시판*/
-	public List<BoardVO> selectAllBoardNotice(HashMap<String, Object> map);
-	public int getBoardCountNotice(String boardId);
+	public List<BoardVO> selectAllBoardNotice(BoardVO boardVO);
+	public int getBoardCountNotice(BoardVO boardVO);
 	
 	/*회원관리게시판*/
 	public List<MemberVO> selectAllBoardMember(int page);

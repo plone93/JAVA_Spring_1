@@ -2,49 +2,49 @@ package com.aast.Service;
 
 import java.util.List;
 
-import www.aast.Domain.BoardVO;
-import www.aast.Domain.CountVO;
+import com.aast.Domain.BoardVO;
+import com.aast.Domain.CountVO;
 
 public interface BoardService {
 	
 	/*기능*/
-	public BoardVO viewBoard(String boardNumber);
-	public String selectMemberName(String boardNumber);
-	public void updateReadCount(String boardNumber);
-	public void updateUpCount(String boardNumber);
-	public void updateDownCount(String boardNumber);
-	public void updateReportCount(String boardNumber);
-	public int getReadCount(String boardNumber);
-	public CountVO getTotalCount(String boardNumber);
-	public int deleteBoard(String boardNumber);
-	public int insertBoard(BoardVO boardVO, String boardId);
-	public int updateBoard(BoardVO boardVO, String boardNumber);
-	public String selectWriter(String boardNumber);
+	public BoardVO viewBoard(BoardVO boardVO);
+	public String selectMemberName(BoardVO boardVO);
+	public void updateReadCount(BoardVO boardVO);
+	public void updateUpCount(BoardVO boardVO);
+	public void updateDownCount(BoardVO boardVO);
+	public void updateReportCount(BoardVO boardVO);
+	public int getReadCount(BoardVO boardVO);
+	public CountVO getTotalCount(BoardVO boardVO);
+	public int deleteBoard(BoardVO boardVO);
+	public int insertBoard(BoardVO boardVO);
+	public int updateBoard(BoardVO boardVO);
+	public String selectWriter(BoardVO boardVO);
 	
 	
 	/*기본게시판*/
-	public List<BoardVO> selectAllBoard(int page, String boardId);
-	public int getBoardCount(String boardId);
+	public List<BoardVO> selectAllBoard(BoardVO boardVO, int page);
+	public int getBoardCount(BoardVO boardVO);
 	
 	/*추천게시판*/
-	public List<BoardVO> selectAllBoardUp(int page, String boardId, String hitCount);
-	public int getBoardCountUp(String boardId, String hitCount);
+	public List<BoardVO> selectAllBoardUp(BoardVO boardVO, int page);
+	public int getBoardCountUp(BoardVO boardVO);
 	
 	/*비추천게시판*/
-	public List<BoardVO> selectAllBoardDown(int page, String boardId, String hitCount);
-	public int geBoardCountDown(String boardId, String hitCount);
+	public List<BoardVO> selectAllBoardDown(BoardVO boardVO, int page);
+	public int geBoardCountDown(BoardVO boardVO);
 	
 	/*신고게시판*/
 	public List<BoardVO> selectAllBoardReport(int page);
 	public int getBoardCountReport();
 	
 	/*통합게시판*/
-	public List<BoardVO> selectAllBoardTotal(int page, String boardId);
-	public int getBoardCountTotal(String boardId);
+	public List<BoardVO> selectAllBoardTotal(BoardVO boardVO, int page);
+	public int getBoardCountTotal(BoardVO boardVO);
 	
 	/*공지사항게시판*/
-	public List<BoardVO> selectAllBoardNotice(int page, String boardId);
-	public int getBoardCountNotice(String boardId);
+	public List<BoardVO> selectAllBoardNotice(BoardVO boardVO, int page);
+	public int getBoardCountNotice(BoardVO boardVO);
 	
 	/*회원관리게시판*/
 	public List<BoardVO> selectAllBoardMember(int page);
@@ -52,14 +52,14 @@ public interface BoardService {
 	
 	/*메인게시글*/
 	/*게시판 드롭메뉴*/
-	public List<BoardVO> selectBoardComment(int page, String board_Id);
-	public List<BoardVO> selectBoardReadCount(int page, String board_Id);
-	public List<BoardVO> selectBoardUp(int page, String board_Id);
-	public List<BoardVO> selectBoardDown(int page, String board_Id);
+	public List<BoardVO> selectBoardComment(BoardVO boardVO, int page);
+	public List<BoardVO> selectBoardReadCount(BoardVO boardVO, int page);
+	public List<BoardVO> selectBoardUp(BoardVO boardVO, int page);
+	public List<BoardVO> selectBoardDown(BoardVO boardVO, int page);
 	
 	/*마이페이지*/
-	public List<BoardVO> selectMyWriteList(int page, String memberNumber);
-	public int selectMyWriteCount(String memberNumber);
+	public List<BoardVO> selectMyWriteList(BoardVO boardVO, int page);
+	public int selectMyWriteCount(BoardVO boardVO);
 	
 	/*관리자페이지*/
 }

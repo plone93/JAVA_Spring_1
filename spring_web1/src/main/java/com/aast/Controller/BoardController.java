@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.aast.Domain.BoardVO;
+import com.aast.Domain.CommentVO;
+import com.aast.Domain.CountVO;
+import com.aast.Domain.PageVO;
 import com.aast.Service.BoardService;
 import com.aast.Service.CommentService;
 
 import lombok.AllArgsConstructor;
-import www.aast.Domain.BoardVO;
-import www.aast.Domain.CommentVO;
-import www.aast.Domain.CountVO;
-import www.aast.Domain.PageVO;
 
 @Controller
 @AllArgsConstructor
@@ -44,9 +44,9 @@ public class BoardController {
 	Model model;
 	MultipartFile file;
 	
-	//게시판 리스트
+	//게시판 리스트 @RequestParam("boardId")String boardId
 	@RequestMapping(value="boardList", method = {RequestMethod.GET})
-	public String boardList(@RequestParam("boardId")String boardId) {
+	public String boardList(BoardVO boardVO) {
 		String url = "";
 		int page = 1;/*페이지*/
 		int boardCount = 0;/*게시판에 검색된 수*/
@@ -59,13 +59,13 @@ public class BoardController {
 		PageVO pageVO = new PageVO();
 		pageVO.setPage(page);
 		
-		List<BoardVO> boardList = board.selectAllBoard(page, boardId);/*게시글을 저장할 리스트 생성*/
-		pageVO.setTotalCount(board.getBoardCount(boardId));
+		List<BoardVO> boardList = board.selectAllBoard(boardVO, page);/*게시글을 저장할 리스트 생성*/
+		pageVO.setTotalCount(board.getBoardCount(boardVO));
 		boardCount = pageVO.getTotalCount();
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
-		model.addAttribute("boardId", boardId);
+		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("pageVO", pageVO);
 		
 		/*최상단 공지사항*/
@@ -80,9 +80,9 @@ public class BoardController {
 		return url;
 	}
 	
-	//게시판 리스트_댓글순
+	//게시판 리스트_댓글순 @RequestParam("boardId") String boardId
 	@RequestMapping(value="boardListComment", method = {RequestMethod.GET})
-	public String boardListComment(@RequestParam("boardId") String boardId) {
+	public String boardListComment(BoardVO boardVO) {
 		
 		String url = "";
 		int page = 1;/*페이지*/
@@ -96,14 +96,14 @@ public class BoardController {
 		PageVO pageVO = new PageVO();
 		pageVO.setPage(page);
 		
-		List<BoardVO> boardList = board.selectBoardComment(page, boardId);/*게시글을 저장할 리스트 생성*/
-		pageVO.setTotalCount(board.getBoardCount(boardId));
+		List<BoardVO> boardList = board.selectBoardComment(boardVO, page);/*게시글을 저장할 리스트 생성*/
+		pageVO.setTotalCount(board.getBoardCount(boardVO));
 		boardCount = pageVO.getTotalCount();
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("pageVO", pageVO);
-		model.addAttribute("boardId", boardId);
+		model.addAttribute("boardVO", boardVO);
 		
 		/*최상단 공지사항*/
 		String noticeBoardId = "";
@@ -117,9 +117,9 @@ public class BoardController {
 		return url;
 	}
 	
-	//게시판 리스트_조회수순
+	//게시판 리스트_조회수순 @RequestParam("boardId")String boardId
 	@RequestMapping(value="boardListReadCount", method = {RequestMethod.GET})
-	public String boardListReadCount(@RequestParam("boardId")String boardId) {
+	public String boardListReadCount(BoardVO boardVO) {
 		String url = "";
 		int page = 1;/*페이지*/
 		int boardCount = 0;/*게시판에 검색된 수*/
@@ -132,15 +132,15 @@ public class BoardController {
 		PageVO pageVO = new PageVO();
 		pageVO.setPage(page);
 		
-		List<BoardVO> boardList = board.selectBoardReadCount(page, boardId);/*게시글을 저장할 리스트 생성*/
-		pageVO.setTotalCount(board.getBoardCount(boardId));
+		List<BoardVO> boardList = board.selectBoardReadCount(boardVO, page);/*게시글을 저장할 리스트 생성*/
+		pageVO.setTotalCount(board.getBoardCount(boardVO));
 		boardCount = pageVO.getTotalCount();
 		
 		/*jsp로 객체를 전송*/
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("pageVO", pageVO);
-		model.addAttribute("boardId", boardId); 
+		model.addAttribute("boardVO", boardVO); 
 		
 		/*최상단 공지사항*/
 		String noticeBoardId = "";
@@ -155,9 +155,9 @@ public class BoardController {
 		return url;
 	}
 	
-	//게시판 리스트_추천
+	//게시판 리스트_추천 @RequestParam("boardId")String boardId
 	@RequestMapping(value="boardListUp", method = {RequestMethod.GET})
-	public String boardListUp(@RequestParam("boardId")String boardId) {
+	public String boardListUp(BoardVO boardVO) {
 		String url = "";/*날아갈 주소(경로)*/
 		int page = 1;/*페이지*/
 		int boardCount = 0;/*게시판에 검색된 수*/
@@ -170,15 +170,15 @@ public class BoardController {
 		PageVO pageVO = new PageVO();/*PageVO 생성*/
 		pageVO.setPage(page);/*페이지 저장*/
 		
-		List<BoardVO> boardList = board.selectBoardUp(page, boardId);/*게시글을 저장할 리스트 생성*/
-		pageVO.setTotalCount(board.getBoardCount(boardId));
-		boardCount = board.getBoardCount(boardId);
+		List<BoardVO> boardList = board.selectBoardUp(boardVO, page);/*게시글을 저장할 리스트 생성*/
+		pageVO.setTotalCount(board.getBoardCount(boardVO));
+		boardCount = board.getBoardCount(boardVO);
 		
 		/*jsp로 객체를 전송*/
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("pageVO", pageVO);
-		model.addAttribute("boardId", boardId); 
+		model.addAttribute("boardVO", boardVO); 
 		
 		/*최상단 공지사항*/
 		String noticeBoardId = "";
@@ -193,9 +193,9 @@ public class BoardController {
 		return url;
 	}
 	
-	//게시판 리스트_비추천
+	//게시판 리스트_비추천  @RequestParam("BoardId")String boardId
 	@RequestMapping(value="boardListDown", method = {RequestMethod.GET})
-	public String boardListDown(@RequestParam("BoardId")String boardId) {
+	public String boardListDown(BoardVO boardVO) {
 		String url = "";/*날아갈 주소(경로)*/
 		int page = 1;/*페이지*/
 		int boardCount = 0;/*게시판에 검색된 수*/
@@ -208,15 +208,15 @@ public class BoardController {
 		PageVO pageVO = new PageVO();/*PageVO 생성*/
 		pageVO.setPage(page);/*페이지 저장*/
 		
-		List<BoardVO> boardList = board.selectBoardDown(page, boardId);/*게시글을 저장할 리스트 생성*/
-	//	pageVO.setTotalCount(board.getBoardCount(boardId));
-		boardCount = board.getBoardCount(boardId);
+		List<BoardVO> boardList = board.selectBoardDown(boardVO, page);/*게시글을 저장할 리스트 생성*/
+		pageVO.setTotalCount(board.getBoardCount(boardVO));
+		boardCount = board.getBoardCount(boardVO);
 		
 		/*jsp로 객체를 전송*/
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("pageVO", pageVO);
-		model.addAttribute("boardId", boardId); 
+		model.addAttribute("boardVO", boardVO); 
 		
 		/*최상단 공지사항*/
 		String noticeBoardId = "";
@@ -233,8 +233,7 @@ public class BoardController {
 	
 	//게시글 보기(클릭한 글 보기)
 	@RequestMapping(value="viewBoard", method = {RequestMethod.GET})
-	public String viewBoard(@RequestParam("boardNumber")String boardNumber,
-							@RequestParam("boardId")String boardId) {
+	public String viewBoard(BoardVO boardVO) {
 		String url = "";/*날아갈 주소(경로)*/
 		int page = 1;/*페이지*/
 		
@@ -244,11 +243,11 @@ public class BoardController {
 			model.addAttribute("page", page);
 		}
 		
-		List<CommentVO> commentList = comment.selectComment(boardNumber);
-		int readCount = board.getReadCount(boardNumber);
-		board.updateReadCount(boardNumber);/*해당글 클릭시 readCount + 1*/
-		BoardVO boardVO = board.viewBoard(boardNumber);
-		String writer = board.selectWriter(boardNumber);
+		List<CommentVO> commentList = comment.selectComment(boardVO.getBoardNumber());
+		int readCount = board.getReadCount(boardVO);
+		board.updateReadCount(boardVO.getBoardNumber());/*해당글 클릭시 readCount + 1*/
+		boardVO = board.viewBoard(boardVO.getBoardNumber());
+		//String writer = board.selectWriter(boardVO.getBoardNumber());
 		
 		/*줄바꿈*/
 		String content = boardVO.getContent();
@@ -259,8 +258,7 @@ public class BoardController {
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("readCount", readCount);
 		model.addAttribute("boardVO", boardVO);
-		model.addAttribute("boardId", boardId);
-		model.addAttribute("writer", writer);
+		//model.addAttribute("writer", writer);
 		
 		/*날아온 message가 있다면 model을 통해서 다시 JSP에 보냄*/
 		if(request.getParameter("message") != null) {
@@ -270,20 +268,19 @@ public class BoardController {
 		return url;
 	}
 	
-	//게시글 작성
+	//게시글 작성 @RequestParam("boardId")String boardId
 	@RequestMapping(value="writeBoard", method = {RequestMethod.GET})
-	public String writeBoard(@RequestParam("boardId")String boardId) {
+	public String writeBoard(BoardVO boardVO) {
 		String url = "";/*날아갈 주소(경로)*/
-		model.addAttribute("boardId", boardId);
+		model.addAttribute("boardVO", boardVO);
 		
 		return url;
 	}
 	
-	//게시글 작성 완료
+	//게시글 작성 완료  @RequestParam("boardId")String boardId,
 	/*spring은 인자에 VO를 기입하면 jsp페이지 변수와 일치하는 값을 VO에 자동 기입해줌*/
 	@RequestMapping(value="writedBoard", method = {RequestMethod.GET})
-	public String writedBoard(@RequestParam("boardId")String boardId,
-							  BoardVO boardVO) {
+	public String writedBoard(BoardVO boardVO) {
 		String url = "";/*날아갈 주소(경로)*/
 		String image;
 		
@@ -298,39 +295,35 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		
-		boardVO.setBoardId(boardId);
-		board.insertBoard(boardVO, boardId);
+		//boardVO.setBoardId(boardId);
+		board.insertBoard(boardVO);
 		
 		/*jsp로 객체를 전송*/
-		model.addAttribute("boardId", boardId);
+		model.addAttribute("boardVO", boardVO);
 		
 		return url;
 	}
 	
-	//게시글 수정
+	//게시글 수정 @RequestParam("boardNumber")int boardNumber,@RequestParam("boardId")String boardId,
 	@RequestMapping(value="editBoard", method = {RequestMethod.GET})
-	public String editBoard(@RequestParam("boardNumber")String boardNumber,
-							@RequestParam("boardId")String boardId,
+	public String editBoard(BoardVO boardVO,
 							@RequestParam("page")String page) {
 		String url = "";/*날아갈 주소(경로)*/
-		BoardVO boardVO = board.viewBoard(boardNumber);
+		boardVO = board.viewBoard(boardVO.getBoardNumber());
 		
 		/*jsp로 객체를 전송*/
 		model.addAttribute("boardVO", boardVO);
-		model.addAttribute("boardId", boardId);
 		model.addAttribute("page", page);
 		
 		return url;
 	}
 	
-	//게시글 수정 완료
+	//게시글 수정 완료 @RequestParam("boardNumber")int boardNumber,@RequestParam("boardId")String boardId,
 	@RequestMapping(value="editedBoard", method = {RequestMethod.GET})
-	public String editedBoard(@RequestParam("boardId")String boardId,
-							  @RequestParam("boardNumber")String boardNumber,
-							  @RequestParam("page")String page,
-							  BoardVO boardVO) {
+	public String editedBoard(BoardVO boardVO,
+							  @RequestParam("page")int page) {
 		String url = "";/*날아갈 주소(경로)*/
-		int result = board.updateBoard(boardVO, boardNumber);
+		int result = board.updateBoard(boardVO);
 		
 		if(result == 1) {/* 1:업데이트 성공*/
 			model.addAttribute("message", "갱신완료");
@@ -339,34 +332,31 @@ public class BoardController {
 		}
 		
 		/*jsp로 객체를 전송*/
-		model.addAttribute("boardId", boardId);
-		model.addAttribute("boardNumber", boardNumber);
+		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("page", page);
 		
 		return url;
 	}
 	
-	//게시글 삭제
+	//게시글 삭제  @RequestParam("boardNumber")int boardNumber,@RequestParam("boardId")String boardId,
 	@RequestMapping(value="deleteBoard", method = {RequestMethod.GET})
-	public String deleteBoard(@RequestParam("boardId")String boardId,
-							  @RequestParam("boardNumber")String boardNumber,
-							  @RequestParam("page")String page) {
+	public String deleteBoard(BoardVO boardVO,
+							  @RequestParam("page")int page) {
 		String url = "";/*날아갈 주소(경로)*/
 		board.deleteBoard(boardNumber);
 		
 		/*jsp로 객체를 전송*/
-		model.addAttribute("boardId", boardId);
+		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("page", page);
 		model.addAttribute("message", "실패했습니다");
 		
 		return url;
 	}
 	
-	//게시글 추천
+	//게시글 추천 @RequestParam("boardNumber")int boardNumber,@RequestParam("boardId")String boardId,
 	@RequestMapping(value="upBoard", method = {RequestMethod.GET})
-	public String upBoard(@RequestParam("boardId")String boardId,
-						  @RequestParam("boardNumber")String boardNumber,
-						  @RequestParam("page")String page) {
+	public String upBoard(BoardVO boardVO,
+						  @RequestParam("page")int page) {
 		String url = "";/*날아갈 주소(경로)*/
 		
 		/*쿠키*/
@@ -379,7 +369,7 @@ public class BoardController {
 			info = cookies[i];
 			
 			/*해당 게시글과 동일한 쿠키가 있는지 검사*/
-			if(info.getName().equals("aastUp"+boardNumber)) {
+			if(info.getName().equals("aastUp"+boardVO.getBoardNumber())) {
 				found = true; /*동일한 쿠키를 찾음*/
 				break;
 			}
@@ -390,18 +380,17 @@ public class BoardController {
 		if(found) {/*쿠키가 있다면 알림창, found가 true라면 아래 message를 띄움*/
 			model.addAttribute("message", "이미 클릭함");
 		} else if(!found) {/*쿠키가 없다면*/
-			info = new Cookie("aastUp"+boardNumber, str);/*두번째 변수 값을 첫번째 변수에 저장(이름, 값)*/
+			info = new Cookie("aastUp"+boardVO.getBoardNumber(), str);/*두번째 변수 값을 첫번째 변수에 저장(이름, 값)*/
 			info.setMaxAge(24*60*60);/*쿠키 유효시간 설정 : 1일(24시간*60분*60초)*/
 			response.addCookie(info); /*쿠키 객체를 웹브라우저로 보냄*/
-			board.updateUpCount(boardNumber);
+			board.updateUpCount(boardVO.getBoardNumber());
 		}
 		
-		CountVO countVO = board.getTotalCount(boardNumber);
+		CountVO countVO = board.getTotalCount(boardVO.getBoardNumber());
 		
 		/*jsp로 객체를 전송*/
 		model.addAttribute("countVO", countVO);
-		model.addAttribute("boardId", boardId);
-		model.addAttribute("boardNumber", boardNumber);
+		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("page", page);
 		
 		return url;
@@ -409,9 +398,8 @@ public class BoardController {
 	
 	//게시글 비추천
 	@RequestMapping(value="downBoard", method = {RequestMethod.GET})
-	public String downBoard(@RequestParam("boardNumber")String boardNumber,
-						    @RequestParam("boardId")String boardId,
-						    @RequestParam("page")String page) {
+	public String downBoard(BoardVO boardVO,
+						    @RequestParam("page")int page) {
 		String url = "";/*날아갈 주소(경로)*/
 		
 		/*쿠키*/
@@ -424,7 +412,7 @@ public class BoardController {
 			info = cookies[i];
 			
 			/*해당 게시글과 동일한 쿠키가 있는지 검사*/
-			if(info.getName().equals("aastDown"+boardNumber)) {
+			if(info.getName().equals("aastDown"+boardVO.getBoardNumber())) {
 				found = true; /*동일한 쿠키를 찾음*/
 				break;
 			}
@@ -435,18 +423,17 @@ public class BoardController {
 		if(found) {/*쿠키가 있다면 알림창, found가 true라면 아래 message를 띄움*/
 			model.addAttribute("message", "이미 클릭함");
 		} else if(!found) {/*쿠키가 없다면*/
-			info = new Cookie("aastDown"+boardNumber, str);/*두번째 변수 값을 첫번째 변수에 저장(이름, 값)*/
+			info = new Cookie("aastDown"+boardVO.getBoardNumber(), str);/*두번째 변수 값을 첫번째 변수에 저장(이름, 값)*/
 			info.setMaxAge(24*60*60);/*쿠키 유효시간 설정 : 1일(24시간*60분*60초)*/
 			response.addCookie(info); /*쿠키 객체를 웹브라우저로 보냄*/
-			board.updateDownCount(boardNumber);
+			board.updateDownCount(boardVO.getBoardNumber());
 		}
 		
-		CountVO countVO = board.getTotalCount(boardNumber);
+		CountVO countVO = board.getTotalCount(boardVO.getBoardNumber());
 		
 		/*jsp로 객체를 전송*/
 		model.addAttribute("countVO", countVO);
-		model.addAttribute("boardId", boardId);
-		model.addAttribute("boardNumber", boardNumber);
+		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("page", page);
 		
 		return url;
@@ -454,9 +441,8 @@ public class BoardController {
 	
 	//게시글 신고
 	@RequestMapping(value="reportBoard", method = {RequestMethod.GET})
-	public String reportBoard(@RequestParam("boardNumber")String boardNumber,
-							  @RequestParam("boardId")String boardId,
-							  @RequestParam("page")String page) {
+	public String reportBoard(BoardVO boardVO,
+							  @RequestParam("page")int page) {
 		String url = "";/*날아갈 주소(경로)*/
 		
 		/*쿠키*/
@@ -469,7 +455,7 @@ public class BoardController {
 			info = cookies[i];
 			
 			/*해당 게시글과 동일한 쿠키가 있는지 검사*/
-			if(info.getName().equals("aastReport"+boardNumber)) {
+			if(info.getName().equals("aastReport"+boardVO.getBoardNumber())) {
 				found = true; /*동일한 쿠키를 찾음*/
 				break;
 			}
@@ -480,18 +466,17 @@ public class BoardController {
 		if(found) {/*쿠키가 있다면 알림창, found가 true라면 아래 message를 띄움*/
 			model.addAttribute("message", "이미 클릭함");
 		} else if(!found) {/*쿠키가 없다면*/
-			info = new Cookie("aastReport"+boardNumber, str);/*두번째 변수 값을 첫번째 변수에 저장(이름, 값)*/
+			info = new Cookie("aastReport"+boardVO.getBoardNumber(), str);/*두번째 변수 값을 첫번째 변수에 저장(이름, 값)*/
 			info.setMaxAge(24*60*60);/*쿠키 유효시간 설정 : 1일(24시간*60분*60초)*/
 			response.addCookie(info); /*쿠키 객체를 웹브라우저로 보냄*/
-			board.updateReportCount(boardNumber);
+			board.updateReportCount(boardVO.getBoardNumber());
 		}
 		
-		CountVO countVO = board.getTotalCount(boardNumber);
+		CountVO countVO = board.getTotalCount(boardVO.getBoardNumber());
 		
 		/*jsp로 객체를 전송*/
 		model.addAttribute("countVO", countVO);
-		model.addAttribute("boardId", boardId);
-		model.addAttribute("boardNumber", boardNumber);
+		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("page", page);
 		
 		return url;

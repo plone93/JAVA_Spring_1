@@ -2,31 +2,31 @@ package com.aast.Service;
 
 import java.util.List;
 
-import www.aast.Domain.AdminVO;
-import www.aast.Domain.MemberVO;
+import com.aast.Domain.AdminVO;
+import com.aast.Domain.MemberVO;
 
 public interface MemberService {
 	/*유저*/
 	public int insertMember(MemberVO memberVO);
 	public MemberVO getMember(String memberId);
-	public int updateMember(MemberVO memberVO, String memberNumber);
-	public String getMemberPass(String memberNumber);
-	public int deleteMember(String memberNumber);
+	public int updateMember(MemberVO memberVO, int memberNumber);
+	public String getMemberPass(int memberNumber);
+	public int deleteMember(int memberNumber);
 	public int checkId(String memberId);
 	public int checkEmail(String memberEmail);
 	public int checkName(String memberName);
-	public int updateEmail(String memberNumber, String memberEmail);
-	public int updatePass(String memberNumber, String memberPass);
-	public int updateName(String memberNumber, String memberName);
-	public int updateAddress(String memberNumer, String addressA, String addressB);
-	public int updatePhoneNumber(String memberNumber, String phoneNumber);
+	public int updateEmail(int memberNumber, String memberEmail);
+	public int updatePass(int memberNumber, String memberPass);
+	public int updateName(int memberNumber, String memberName);
+	public int updateAddress(int memberNumer, String addressA, String addressB);
+	public int updatePhoneNumber(int memberNumber, String phoneNumber);
 	
 	/*관리자*/ 
-	public AdminVO getAdmin(String adminNumber);
+	public AdminVO getAdmin(int adminNumber);
 	public int checkAdminEmail(String adminEmail);
-	public int updateAdminEmail(String adminNumber, String adminEamil);
-	public int updateAdminName(String adminNumber, String adminName);
-	public int updateAdminPass(String adminNumber, String adminPass);
+	public int updateAdminEmail(int adminNumber, String adminEamil);
+	public int updateAdminName(int adminNumber, String adminName);
+	public int updateAdminPass(int adminNumber, String adminPass);
 	public List<MemberVO> selectAllMember(int page);
 	public int getMemberCount();
 }

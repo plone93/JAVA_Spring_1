@@ -3,16 +3,17 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
   <!-- namespce : (패키지>Mapper) 경로  -->
-  <mapper namespace="com.aast.mapper.LoginMapper">
+  <mapper namespace="com.aast.Mapper.LoginMapper">
   	
   	<!--로그인 -->
-  	<select id="LoginMember" parameterType="hashmap" resultType="int">
+  	<select id="loginMember" parameterType="hashmap" resultType="int">
   		select count(*) from aast_member
-  		where memberId = #{id} and memberPass = #{pass}
+  		where memberId = #{memberId} and memberPass = #{memberPass}
   	</select>
   	
-  	<select id="LoginAdmin" parameterType="hashmap" resultType="int">
+  	<select id="loginAdmin" parameterType="hashmap" resultType="int">
   		select count(*) from aast_member
-  		where memberId = #{id} and memberPass = #{pass}
+  		where memberId = #{adminId} and memberPass = #{adminPass}
   	</select>
+  	
   </mapper>

@@ -3,8 +3,8 @@ package com.aast.Mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import www.aast.Domain.BoardVO;
-import www.aast.Domain.MemberVO;
+import com.aast.Domain.BoardVO;
+import com.aast.Domain.MemberVO;
 
 public interface SearchMapper {
 	/*일반게시판 검색*/

@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
   <!-- namespce : (패키지>Mapper) 경로  -->
- <mapper namespace="com.aast.mapper.CommentMapper">
+ <mapper namespace="com.aast.Mapper.CommentMapper">
  	<!-- 댓글 -->
  	<insert id="insertComment" parameterType="hashmap">
  		insert into aast(commentNumber, boardNumber, boardId, memberId, memberName, content)

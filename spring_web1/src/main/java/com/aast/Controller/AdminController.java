@@ -44,21 +44,21 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value = "/updateAdminEmail", method = {RequestMethod.POST})
 	public int UpdateAdminEmail() {
-		
+		return 0;
 	}
 	
 	//관리자 닉네임 변경
 	@ResponseBody
 	@RequestMapping(value="updateAdminNickName", method = {RequestMethod.POST})
 	public int UpdateAdminNickName() {
-		
+		return 0;
 	}
 	
 	//관리자 비밀번호 변경
 	@ResponseBody
 	@RequestMapping(value="updateAdminPass", method = {RequestMethod.POST})
 	public int UpdateAdminPass() {
-		
+		return 0;
 	}
 
 }

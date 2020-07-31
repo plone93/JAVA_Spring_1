@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.aast.Domain.BoardVO;
+import com.aast.Domain.MemberVO;
+import com.aast.Domain.SearchVO;
 import com.aast.Mapper.SearchMapper;
 
 import lombok.AllArgsConstructor;
-import www.aast.Domain.BoardVO;
-import www.aast.Domain.MemberVO;
-import www.aast.Domain.SearchVO;
 
 @Service
 @AllArgsConstructor
@@ -58,7 +58,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<BoardVO> searchUp(int page, SearchVO searchVO, String hitCount) {
+	public List<BoardVO> searchUp(int page, SearchVO searchVO, int hitCount) {
 		map = new HashMap<String, Object>();
 		startNumber = (page-1)*10+1;
 		endNumber = page*10;
@@ -72,7 +72,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public int searchUpCount(SearchVO searchVO, String hitCount) {
+	public int searchUpCount(SearchVO searchVO, int hitCount) {
 		map = new HashMap<String, Object>();
 		
 		map.put("searhVO", searchVO);
@@ -82,13 +82,13 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<BoardVO> searchDown(int page, SearchVO searchVO, String hitCount) {
+	public List<BoardVO> searchDown(int page, SearchVO searchVO, int hitCount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int searchDownCount(SearchVO searchVO, String hitCount) {
+	public int searchDownCount(SearchVO searchVO, int hitCount) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

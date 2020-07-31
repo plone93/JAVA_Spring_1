@@ -5,162 +5,129 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.aast.Domain.BoardVO;
+import com.aast.Domain.CountVO;
+import com.aast.Domain.MemberVO;
 import com.aast.Mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
-import www.aast.Domain.BoardVO;
-import www.aast.Domain.CountVO;
 
+//@Component
 @Service
 @AllArgsConstructor
 public class BoardServiceImpl implements BoardService {
 		
 	BoardMapper board;
-	HashMap<String, Object> map;
 	int startNumber;
 	int endNumber;
 	
 	@Override
-	public BoardVO viewBoard(String boardNumber) {
-		return board.viewBoard(boardNumber);
+	public BoardVO viewBoard(BoardVO boardVO) {
+		return board.viewBoard(boardVO);
 	}
 
 	@Override
-	public String selectMemberName(String boardNumber) {
-		return board.selectMemberName(boardNumber);
+	public String selectMemberName(BoardVO boardVO) {
+		return board.selectMemberName(boardVO);
 	}
 
 	@Override
-	public void updateReadCount(String boardNumber) {
-		board.updateReadCount(boardNumber);
+	public void updateReadCount(BoardVO boardVO) {
+		board.updateReadCount(boardVO);
 	}
 
 	@Override
-	public void updateUpCount(String boardNumber) {
-		board.updateUpCount(boardNumber);
+	public void updateUpCount(BoardVO boardVO) {
+		board.updateUpCount(boardVO);
 	}
 
 	@Override
-	public void updateDownCount(String boardNumber) {
-		board.updateDownCount(boardNumber);
+	public void updateDownCount(BoardVO boardVO) {
+		board.updateDownCount(boardVO);
 	}
 
 	@Override
-	public void updateReportCount(String boardNumber) {
-		board.updateReportCount(boardNumber);
+	public void updateReportCount(BoardVO boardVO) {
+		board.updateReportCount(boardVO);
 	}
 
 	@Override
-	public int getReadCount(String boardNumber) {
-		return board.getReadCount(boardNumber);
+	public int getReadCount(BoardVO boardVO) {
+		return board.getReadCount(boardVO);
 	}
 
 	@Override
-	public CountVO getTotalCount(String boardNumber) {
-		return board.getTotalCount(boardNumber);
+	public CountVO getTotalCount(BoardVO boardVO) {
+		return board.getTotalCount(boardVO);
 	}
 
 	@Override
-	public int deleteBoard(String boardNumber) {
-		return board.deleteBoard(boardNumber);
+	public int deleteBoard(BoardVO boardVO) {
+		return board.deleteBoard(boardVO);
 	}
 
 	@Override
-	public int insertBoard(BoardVO boardVO, String boardId) {
-		map = new HashMap<String, Object>();
-		map.put("boardVO", boardVO);
-		map.put("boardId", boardId);
+	public int insertBoard(BoardVO boardVO) {
+		return board.insertBoard(boardVO);
+	}
+
+	@Override
+	public int updateBoard(BoardVO boardVO) {
+		return board.updateBoard(boardVO);
+	}
+
+	@Override
+	public String selectWriter(BoardVO boardVO) {
+		return board.selectWriter(boardVO);
+	}
+
+	@Override
+	public List<BoardVO> selectAllBoard(BoardVO boardVO, int page) {
+		boardVO.setPageStartNumber((page-1)*10+1); 
+		boardVO.setPageEndNumber(page*10);
+
+		return board.selectAllBoard(boardVO);
+	}
+
+	@Override
+	public int getBoardCount(BoardVO boardVO) {
+		return board.getBoardCount(boardVO);
+	}
+
+	@Override
+	public List<BoardVO> selectAllBoardUp(BoardVO boardVO, int page) {
+		boardVO.setPageStartNumber((page-1)*10+1); 
+		boardVO.setPageEndNumber(page*10);
+
+
+		return board.selectAllBoardUp(boardVO);
+	}
+
+	@Override
+	public int getBoardCountUp(BoardVO boardVO) {
+		return board.getBoardCountUp(boardVO);
+	}
+
+	@Override
+	public List<BoardVO> selectAllBoardDown(BoardVO boardVO, int page) {
+		boardVO.setPageStartNumber((page-1)*10+1); 
+		boardVO.setPageEndNumber(page*10);
 		
-		return board.insertBoard(map);
+		return board.selectAllBoardDown(boardVO);
 	}
 
 	@Override
-	public int updateBoard(BoardVO boardVO, String boardNumber) {
-		map = new HashMap<String, Object>();
-		map.put("boardVO", boardVO);
-		map.put("boardNumber", boardNumber);
-		return board.updateBoard(map);
-	}
-
-	@Override
-	public String selectWriter(String boardNumber) {
-		return board.selectWriter(boardNumber);
-	}
-
-	@Override
-	public List<BoardVO> selectAllBoard(int page, String boardId) {
-		map = new HashMap<String, Object>();
-		startNumber = (page-1)*10+1;
-		endNumber = page*10;
-		
-		map.put("startNumber", startNumber);
-		map.put("endNumber", endNumber);
-		map.put("boardId", boardId);
-		
-		return board.selectAllBoard(map);
-	}
-
-	@Override
-	public int getBoardCount(String boardId) {
-		return board.getBoardCount(boardId);
-	}
-
-	@Override
-	public List<BoardVO> selectAllBoardUp(int page, String boardId, String hitCount) {
-		map = new HashMap<String, Object>();
-		startNumber = (page-1)*10+1;
-		endNumber = page*10;
-		
-		map.put("startNumber", startNumber);
-		map.put("endNumber", endNumber);
-		map.put("boardId", boardId);
-		map.put("hitCount", hitCount);
-		
-		return board.selectAllBoardUp(map);
-	}
-
-	@Override
-	public int getBoardCountUp(String boardId, String hitCount) {
-		map = new HashMap<String, Object>();
-		map.put("boardId", boardId);
-		map.put("hitCount", hitCount);
-		
-		return board.getBoardCountUp(map);
-	}
-
-	@Override
-	public List<BoardVO> selectAllBoardDown(int page, String boardId, String hitCount) {
-		map = new HashMap<String, Object>();
-		startNumber = (page-1)*10+1;
-		endNumber = page*10;
-		
-		map.put("startNumber", startNumber);
-		map.put("endNumber", endNumber);
-		map.put("boardId", boardId);
-		map.put("hitCount", hitCount);
-		
-		return board.selectAllBoardDown(map);
-	}
-
-	@Override
-	public int geBoardCountDown(String boardId, String hitCount) {
-		map = new HashMap<String, Object>();
-		map.put("boardId", boardId);
-		map.put("hitCount", hitCount);
-		
-		return board.getBoardCountDown(map);
+	public int geBoardCountDown(BoardVO boardVO) {
+		return board.getBoardCountDown(boardVO);
 	}
 
 	@Override
 	public List<BoardVO> selectAllBoardReport(int page) {
-		map = new HashMap<String, Object>();
-		startNumber = (page-1)*10+1;
-		endNumber = page*10;
-		
-		map.put("startNumber", startNumber);
-		map.put("endNumber", endNumber);
-		
-		return board.selectAllBoardReport(map);
+		BoardVO boardVO = new BoardVO();
+		boardVO.setPageStartNumber((page-1)*10+1); 
+		boardVO.setPageEndNumber(page*10);
+	
+		return board.selectAllBoardReport(boardVO);
 	}
 
 	@Override
@@ -169,38 +136,29 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> selectAllBoardTotal(int page, String boardId) {
-		map = new HashMap<String, Object>();
-		startNumber = (page-1)*10+1;
-		endNumber = page*10;
+	public List<BoardVO> selectAllBoardTotal(BoardVO boardVO, int page) {
+		boardVO.setPageStartNumber((page-1)*10+1); 
+		boardVO.setPageEndNumber(page*10);
 		
-		map.put("startNumber", startNumber);
-		map.put("endNumber", endNumber);
-		
-		return board.selectAllBoardTotal(map);
+		return board.selectAllBoardTotal(boardVO);
 	}
 
 	@Override
-	public int getBoardCountTotal(String boardId) {
-		return board.getBoardCountTotal(map);
+	public int getBoardCountTotal(BoardVO boardVO) {
+		return board.getBoardCountTotal(boardVO);
 	}
 
 	@Override
-	public List<BoardVO> selectAllBoardNotice(int page, String boardId) {
-		map = new HashMap<String, Object>();
-		startNumber = (page-1)*10+1;
-		endNumber = page*10;
+	public List<BoardVO> selectAllBoardNotice(BoardVO boardVO, int page) {
+		boardVO.setPageStartNumber((page-1)*10+1); 
+		boardVO.setPageEndNumber(page*10);
 		
-		map.put("startNumber", startNumber);
-		map.put("endNumber", endNumber);
-		map.put("boardId", boardId);
-		
-		return board.selectAllBoardNotice(map);
+		return board.selectAllBoardNotice(boardVO);
 	}
 
 	@Override
-	public int getBoardCountNotice(String boardId) {
-		return board.getBoardCountNotice(boardId);
+	public int getBoardCountNotice(BoardVO boardVO) {
+		return board.getBoardCountNotice(boardVO);
 	}
 
 	@Override
@@ -216,37 +174,37 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> selectBoardComment(int page, String board_Id) {
+	public List<BoardVO> selectBoardComment(BoardVO boardVO, int page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<BoardVO> selectBoardReadCount(int page, String board_Id) {
+	public List<BoardVO> selectBoardReadCount(BoardVO boardVO, int page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<BoardVO> selectBoardUp(int page, String board_Id) {
+	public List<BoardVO> selectBoardUp(BoardVO boardVO, int page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<BoardVO> selectBoardDown(int page, String board_Id) {
+	public List<BoardVO> selectBoardDown(BoardVO boardVO, int page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<BoardVO> selectMyWriteList(int page, String memberNumber) {
+	public List<BoardVO> selectMyWriteList(BoardVO boardVO, int page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int selectMyWriteCount(String memberNumber) {
+	public int selectMyWriteCount(BoardVO boardVO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

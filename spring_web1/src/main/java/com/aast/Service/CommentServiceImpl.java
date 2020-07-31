@@ -3,10 +3,15 @@ package com.aast.Service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.aast.Domain.CommentVO;
 import com.aast.Mapper.CommentMapper;
 
-import www.aast.Domain.CommentVO;
+import lombok.AllArgsConstructor;
 
+@Service
+@AllArgsConstructor
 public class CommentServiceImpl implements CommentService{
 	
 	CommentMapper comment;
@@ -21,12 +26,12 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public CommentVO viewComment(String commentNumber) {
+	public CommentVO viewComment(int commentNumber) {
 		return comment.viewComment(commentNumber);
 	}
 
 	@Override
-	public void updateComment(CommentVO commentVO, String commentNumber) {
+	public void updateComment(CommentVO commentVO, int commentNumber) {
 		map = new HashMap<String, Object>();
 		map.put("commentVO", commentVO);
 		map.put("commentNumber", commentNumber);
@@ -35,7 +40,7 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public void updateCommentCount(int commentCount, String boardNumber) {
+	public void updateCommentCount(int commentCount, int boardNumber) {
 		map = new HashMap<String, Object>();
 		map.put("commentCount", commentCount);
 		map.put("boardNumber", boardNumber);
@@ -44,17 +49,17 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public int deleteComment(String commentNumber) {
+	public int deleteComment(int commentNumber) {
 		return comment.deleteComment(commentNumber);
 	}
 
 	@Override
-	public List<CommentVO> selectComment(String boardNumber) {
+	public List<CommentVO> selectComment(int boardNumber) {
 		return comment.selectComment(boardNumber);
 	}
 
 	@Override
-	public int getCommentCount(String boardNumber) {
+	public int getCommentCount(int boardNumber) {
 		return comment.getCommentCount(boardNumber);
 	}
 

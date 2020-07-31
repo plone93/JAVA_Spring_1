@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aast.Domain.BoardVO;
+import com.aast.Domain.MemberVO;
+import com.aast.Domain.PageVO;
 import com.aast.Service.BoardService;
 import com.aast.Service.CommentService;
 import com.aast.Service.LoginService;
@@ -20,9 +23,6 @@ import com.aast.Service.MemberService;
 import com.aast.Service.SearchService;
 
 import lombok.AllArgsConstructor;
-import www.aast.Domain.BoardVO;
-import www.aast.Domain.MemberVO;
-import www.aast.Domain.PageVO;
 
 @Controller
 @AllArgsConstructor
@@ -107,7 +107,7 @@ public class MemberController {
 	
 	/*멤버 정보 수정 완료(수정필요)*/
 	@RequestMapping(value = "editedMemberProfile", method = {RequestMethod.POST})
-	public String editedMemberProfile(@RequestParam("memberNumber")String memberNumber,
+	public String editedMemberProfile(@RequestParam("memberNumber")int memberNumber,
 									  MemberVO memberVO) {
 		String url = "";/*날아갈 주소(경로)*/	
 		int result = 0;
@@ -124,7 +124,7 @@ public class MemberController {
 	
 	/*내가 작성한글(수정필요)*/
 	@RequestMapping(value = "myWriteList", method = {RequestMethod.GET})
-	public String myWriteList(@RequestParam("memberNumber")String memberNumber) {
+	public String myWriteList(@RequestParam("memberNumber")int memberNumber) {
 		String url = "";/*날아갈 주소(경로)*/	
 		int page = 1;
 		int boardCount = 0;
@@ -164,7 +164,7 @@ public class MemberController {
 	
 	/*멤버탈퇴 완료*/
 	@RequestMapping(value = "deletedMember", method = {RequestMethod.POST})
-	public String deletedMember(@RequestParam("memberNumber")String memberNumber,
+	public String deletedMember(@RequestParam("memberNumber")int memberNumber,
 								@RequestParam("memberPass")String memberPass,
 								@RequestParam("inputPass")String inputPass) {
 		String url = "";/*날아갈 주소(경로)*/	
@@ -233,7 +233,7 @@ public class MemberController {
 	/*이메일 중복체크 후 갱신*/
 	@ResponseBody
 	@RequestMapping(value = "updateEmail", method = {RequestMethod.POST})
-	public int updateEmail(@RequestParam("memberNumber")String memberNumber,
+	public int updateEmail(@RequestParam("memberNumber")int memberNumber,
 						   @RequestParam("memberEmail")String memberEmail) {
 		int check = 0;
 		int result = 0;/*jsp에서 ajax를 통해 결과를 알려줄 변수*/
@@ -250,30 +250,34 @@ public class MemberController {
 		return result;
 	}
 	
+
+	
 	/*닉네임 중복체크후 갱신  수정필요*/
 	@ResponseBody
 	@RequestMapping(value = "updateNickName", method = {RequestMethod.POST})
-	public int updateNickName(@RequestParam("memberNumber")String memberNumber,
-						   @RequestParam("memberNickName")String memberName) {
+	public int updateNickName(@RequestParam("memberNumber")int memberNumber,
+							  @RequestParam("memberNickName")String memberNickName) {
 		int check = 0;
 		int result = 0;/*jsp에서 ajax를 통해 결과를 알려줄 변수*/
 		
 		/*이메일 중복체크 메소드를 실행해서 결과를 리턴*/
-		check = member.checkName(memberName);
+		//check = member.checkName(memberNickName);
 		
 		if(check == 1) {/*중복된 아이디가 검색되었다면*/
 			result = 1;/* 1이면 중복된 이메일 검색되서 1이상이 리턴됐으므로 사용불가, 검색된 행의 갯수를 리턴함 */
 		} else if(check == 0) {/*중복된 아이디가 검색되지 않았다면*/
-			member.updateName(memberNumber, memberName);/*갱신*/
+		//	member.updateNickName(memberNumber, memberNickName);/*갱신*/
 		}
 		
 		return result;
 	}
 	
+
+	
 	/*비밀번호 갱신*/
 	@ResponseBody
 	@RequestMapping(value = "updatePass", method = {RequestMethod.POST})
-	public int updatePass(@RequestParam("memberNumber")String memberNumber,
+	public int updatePass(@RequestParam("memberNumber")int memberNumber,
 						   @RequestParam("memberPass")String memberPass) {
 		int check = 0;
 		int result = 0;/*jsp에서 ajax를 통해 결과를 알려줄 변수*/

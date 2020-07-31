@@ -44,6 +44,6 @@
 		</bean>
 		
 		<!-- Mapper와 Service 객체 스캔 -->
-		<mybatis-spring:scan base-package="com.aast.www.Mapper"></mybatis-spring:scan>
-		<context:component-scan base-package="com.aast.www.Service"></context:component-scan>
+		<mybatis-spring:scan base-package="com.aast.Mapper"></mybatis-spring:scan>
+		<context:component-scan base-package="com.aast.Service"></context:component-scan>
 </beans>

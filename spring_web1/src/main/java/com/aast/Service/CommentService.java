@@ -2,16 +2,16 @@ package com.aast.Service;
 
 import java.util.List;
 
-import www.aast.Domain.CommentVO;
+import com.aast.Domain.CommentVO;
 
 public interface CommentService {
 	/*댓글*/
 	public int writeComment(CommentVO commentVO);
-	public CommentVO viewComment(String commentNumber);
-	public void updateComment(CommentVO commentVO, String commentNumber);
-	public void updateCommentCount(int commentCount, String boardNumber);
-	public int deleteComment(String commentNumber);
-	public List<CommentVO> selectComment(String boardNumber);
-	public int getCommentCount(String boardNumber);
+	public CommentVO viewComment(int commentNumber);
+	public void updateComment(CommentVO commentVO, int commentNumber);
+	public void updateCommentCount(int commentCount, int boardNumber);
+	public int deleteComment(int commentNumber);
+	public List<CommentVO> selectComment(int boardNumber);
+	public int getCommentCount(int boardNumber);
 
 }

@@ -3,7 +3,8 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
   <!-- namespce : (패키지>Mapper) 경로  -->
-  <mapper namespace="com.aast.mapper.MemberMapper">
+  <mapper namespace="com.aast.Mapper.MemberMapper">
+  
   	<insert id="insertMember" parameterType="hashmap">
   		insert into aast_member(memberNumber, memberId, memberPass, memberName, memberEmail)
   	values(aast_member_seq.nextval, #{memberVO.memberId}, #{memberVO.memberPass}, #{memberVO.memberName}, #{memberVO.memberEmail})
@@ -96,7 +97,7 @@
  		where adminEmail = #{adminEmail}
  	</select>
  	
- 	<update id="updateName" parameterType="hashmap">
+ 	<update id="updateAddress" parameterType="hashmap">
  		update aast_member set addressA = #{addressA}, addressB = #{adressB}
  		where memberNumber = #{memberNumber}
  	</update>
