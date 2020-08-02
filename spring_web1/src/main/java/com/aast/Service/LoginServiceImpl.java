@@ -13,22 +13,21 @@ import lombok.AllArgsConstructor;
 public class LoginServiceImpl implements LoginService{
 	
 	LoginMapper login;
-	HashMap<String, Object> map;
 	
 	@Override
-	public int loginMember(String memberId, String memberPass) {
-		map = new HashMap<String, Object>();
-		map.put("memberId", memberId);
-		map.put("memberPass", memberPass);
+	public int loginMember(String inputId, String inputPass) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", inputId);
+		map.put("memberPass", inputPass);
 		
 		return login.loginMember(map);
 	}
 
 	@Override
-	public int loginAdmin(String adminId, String adminPass) {
-		map = new HashMap<String, Object>();
-		map.put("adminId", adminId);
-		map.put("adminPass", adminPass);
+	public int loginAdmin(String inputId, String inputPass) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("inputId", inputId);
+		map.put("inputPass", inputPass);
 		
 		return login.loginAdmin(map);
 	}

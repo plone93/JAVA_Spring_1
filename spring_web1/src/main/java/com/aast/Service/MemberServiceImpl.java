@@ -1,13 +1,11 @@
 package com.aast.Service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.aast.Domain.AdminVO;
 import com.aast.Domain.MemberVO;
-import com.aast.Mapper.BoardMapper;
 import com.aast.Mapper.MemberMapper;
 
 import lombok.AllArgsConstructor;
@@ -17,99 +15,71 @@ import lombok.AllArgsConstructor;
 public class MemberServiceImpl implements MemberService{
 	
 	MemberMapper member;
-	HashMap<String, Object> map;
+	//HashMap<String, Object> map;
 	
 	@Override
 	public int insertMember(MemberVO memberVO) {
-		map = new HashMap<String, Object>();
-		map.put("memberVO", memberVO);
-		
-		return member.insertMember(map);
+		return member.insertMember(memberVO);
 	}
 
 	@Override
-	public MemberVO getMember(String memberId) {
-		return member.getMember(memberId);
+	public MemberVO getMember(MemberVO memberVO) {
+		return member.getMember(memberVO);
 	}
 
 	@Override
-	public int updateMember(MemberVO memberVO, int memberNumber) {
-		map = new HashMap<String, Object>();
-		map.put("memberVO", memberVO);
-		map.put("memberNumber", memberNumber);
-		
-		return member.updateMember(map);
+	public int updateMember(MemberVO memberVO) {
+		return member.updateMember(memberVO);
 	}
 
 	@Override
-	public String getMemberPass(int memberNumber) {
-		return member.getMemberPass(memberNumber);
+	public String getMemberPass(MemberVO memberVO) {
+		return member.getMemberPass(memberVO);
 	}
 
 	@Override
-	public int deleteMember(int memberNumber) {
-		return member.deleteMember(memberNumber);
+	public int deleteMember(MemberVO memberVO) {
+		return member.deleteMember(memberVO);
 	}
 
 	@Override
-	public int checkId(String memberId) {
-		return member.checkId(memberId);
+	public int checkId(String inputId) {
+		return member.checkId(inputId);
 	}
 
 	@Override
-	public int checkEmail(String memberEmail) {
-		return member.checkEmail(memberEmail);
+	public int checkEmail(String inputEmail) {
+		return member.checkEmail(inputEmail);
 	}
 
 	@Override
-	public int checkName(String memberName) {
-		return member.checkName(memberName);
+	public int checkName(String inputName) {
+		return member.checkName(inputName);
 	}
 
 	@Override
-	public int updateEmail(int memberNumber, String memberEmail) {
-		map = new HashMap<String, Object>();
-		map.put("memberNumber", memberNumber);
-		map.put("memberEmail", memberEmail);
-		
-		return member.updateEmail(map);
+	public int updateEmail(MemberVO memberVO) {
+		return member.updateEmail(memberVO);
 	}
 
 	@Override
-	public int updatePass(int memberNumber, String memberPass) {
-		map = new HashMap<String, Object>();
-		map.put("memberNumber", memberNumber);
-		map.put("memberPass", memberPass);
-		
-		return member.updatePass(map);
+	public int updatePass(MemberVO memberVO) {
+		return member.updatePass(memberVO);
 	}
 
 	@Override
-	public int updateName(int memberNumber, String memberName) {
-		map = new HashMap<String, Object>();
-		map.put("memberNumber", memberNumber);
-		map.put("memberName", memberName);
-		
-		return member.updateName(map);
+	public int updateName(MemberVO memberVO) {
+		return member.updateName(memberVO);
 	}
 
 	@Override
-	public int updateAddress(int memberNumber, String addressA, String addressB) {
-		map = new HashMap<String, Object>();
-		map.put("memberNumber", memberNumber);
-		map.put("addressA", addressA);
-		map.put("addressB", addressB);
-		
-		return member.updateAddress(map);
+	public int updateAddress(MemberVO memberVO) {
+		return member.updateAddress(memberVO);
 	}
 
 	@Override
-	public int updatePhoneNumber(int memberNumber, String phoneNumber) {
-		map = new HashMap<String, Object>();
-		map.put("memberNumber", memberNumber);
-		map.put("phoneNumber", phoneNumber);
-		
-		return member.updatePhoneNumber(map);
+	public int updatePhoneNumber(MemberVO memberVO) {
+		return member.updatePhoneNumber(memberVO);
 	}
 
 	@Override

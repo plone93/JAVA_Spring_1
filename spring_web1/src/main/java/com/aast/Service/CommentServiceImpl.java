@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.aast.Domain.BoardVO;
 import com.aast.Domain.CommentVO;
 import com.aast.Mapper.CommentMapper;
 
@@ -15,52 +16,40 @@ import lombok.AllArgsConstructor;
 public class CommentServiceImpl implements CommentService{
 	
 	CommentMapper comment;
-	HashMap<String, Object> map;
 	
 	@Override
 	public int writeComment(CommentVO commentVO) {
-		map = new HashMap<String, Object>();
-		map.put("commentVO", commentVO);
-		
-		return comment.insertComment(map);
+		return comment.insertComment(commentVO);
 	}
 
 	@Override
-	public CommentVO viewComment(int commentNumber) {
-		return comment.viewComment(commentNumber);
+	public CommentVO viewComment(CommentVO commentVO) {
+		return comment.viewComment(commentVO);
 	}
 
 	@Override
-	public void updateComment(CommentVO commentVO, int commentNumber) {
-		map = new HashMap<String, Object>();
-		map.put("commentVO", commentVO);
-		map.put("commentNumber", commentNumber);
-		
-		comment.updateComment(map);
+	public void updateComment(CommentVO commentVO) {
+		comment.updateComment(commentVO);
 	}
 
 	@Override
-	public void updateCommentCount(int commentCount, int boardNumber) {
-		map = new HashMap<String, Object>();
-		map.put("commentCount", commentCount);
-		map.put("boardNumber", boardNumber);
-		
-		comment.updateCommentCount(map);
+	public void updateCommentCount(BoardVO boardVO) {
+		comment.updateCommentCount(boardVO);
 	}
 
 	@Override
-	public int deleteComment(int commentNumber) {
-		return comment.deleteComment(commentNumber);
+	public int deleteComment(CommentVO commentVO) {
+		return comment.deleteComment(commentVO);
 	}
 
 	@Override
-	public List<CommentVO> selectComment(int boardNumber) {
-		return comment.selectComment(boardNumber);
+	public List<CommentVO> selectComment(BoardVO boardVO) {
+		return comment.selectComment(boardVO);
 	}
 
 	@Override
-	public int getCommentCount(int boardNumber) {
-		return comment.getCommentCount(boardNumber);
+	public int getCommentCount(BoardVO boardVO) {
+		return comment.getCommentCount(boardVO);
 	}
 
 }

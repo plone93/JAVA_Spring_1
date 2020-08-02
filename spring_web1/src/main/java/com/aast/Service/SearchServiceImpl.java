@@ -17,30 +17,26 @@ import lombok.AllArgsConstructor;
 public class SearchServiceImpl implements SearchService {
 	
 	SearchMapper search;
-	HashMap<String, Object> map;
-	int startNumber;
-	int endNumber;
+
 	
 	@Override
-	public List<BoardVO> search(int page, SearchVO searchVO, String boardId) {
-		map = new HashMap<String, Object>();
-		startNumber = (page-1)*10+1;
-		endNumber = page*10;
+	public List<BoardVO> search(int page, SearchVO searchVO, BoardVO boardVO) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		boardVO.setPageStartNumber((page-1)*10+1); 
+		boardVO.setPageEndNumber(page*10);
 		
-		map.put("startNumber", startNumber);
-		map.put("endNumber", endNumber);
 		map.put("searchVO", searchVO);
-		map.put("boardId", boardId);
+		map.put("boardVO", boardVO);
 		
 		return search.search(map);
 	}
 
 	@Override
-	public int searchCount(SearchVO searchVO, String boardId) {
-		map = new HashMap<String, Object>();
+	public int searchCount(SearchVO searchVO, BoardVO boardVO) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("searchVO", searchVO);
-		map.put("boardId", boardId);
+		map.put("boardVO", boardVO);
 		
 		return search.searchCount(map);
 	}
@@ -59,9 +55,9 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public List<BoardVO> searchUp(int page, SearchVO searchVO, int hitCount) {
-		map = new HashMap<String, Object>();
-		startNumber = (page-1)*10+1;
-		endNumber = page*10;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNumber = (page-1)*10+1;
+		int endNumber = page*10;
 		
 		map.put("startNumber", startNumber);
 		map.put("endNumber", endNumber);
@@ -73,7 +69,7 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public int searchUpCount(SearchVO searchVO, int hitCount) {
-		map = new HashMap<String, Object>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("searhVO", searchVO);
 		map.put("hitCount", hitCount);
@@ -107,9 +103,9 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public List<BoardVO> searchTotal(int page, SearchVO searchVO) {
-		map = new HashMap<String, Object>();
-		startNumber = (page-1)*10+1;
-		endNumber = page*10;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNumber = (page-1)*10+1;
+		int endNumber = page*10;
 		
 		map.put("startNumber", startNumber);
 		map.put("endNumber", endNumber);
@@ -120,18 +116,14 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public int searchTotalCount(SearchVO searchVO) {
-		map = new HashMap<String, Object>();
-	
-		map.put("searchVO", searchVO);
-
-		return search.searchTotalCount(map);
+		return search.searchTotalCount(searchVO);
 	}
 
 	@Override
 	public List<MemberVO> searchMember(int page, SearchVO searchVO) {
-		map = new HashMap<String, Object>();
-		startNumber = (page-1)*10+1;
-		endNumber = page*10;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNumber = (page-1)*10+1;
+		int endNumber = page*10;
 		
 		map.put("startNumber", startNumber);
 		map.put("endNumber", endNumber);
@@ -142,11 +134,7 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public int searchMemberCount(SearchVO searchVO) {
-		map = new HashMap<String, Object>();
-		
-		map.put("searchVO", searchVO);
-		
-		return search.searchMemberCount(map);
+		return search.searchMemberCount(searchVO);
 	}
 
 	@Override

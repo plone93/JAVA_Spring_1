@@ -1,6 +1,5 @@
 package com.aast.Service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,8 +17,6 @@ import lombok.AllArgsConstructor;
 public class BoardServiceImpl implements BoardService {
 		
 	BoardMapper board;
-	int startNumber;
-	int endNumber;
 	
 	@Override
 	public BoardVO viewBoard(BoardVO boardVO) {
@@ -198,13 +195,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> selectMyWriteList(BoardVO boardVO, int page) {
+	public List<BoardVO> selectMyWriteList(MemberVO memberVO, int page) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int selectMyWriteCount(BoardVO boardVO) {
+	public int selectMyWriteCount(MemberVO memberVO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

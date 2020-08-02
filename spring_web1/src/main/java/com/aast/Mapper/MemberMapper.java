@@ -8,19 +8,19 @@ import com.aast.Domain.MemberVO;
 
 public interface MemberMapper {
 	/*멤버 검색*/
-	public int insertMember(HashMap<String, Object> map);//회원가입
-	public MemberVO getMember(String memberId);//회원정보수정창에 띄울 가입된 정보
-	public int updateMember(HashMap<String, Object> map);//회원정보수정 갱신
-	public String getMemberPass(int memberNumber);//회원타로티 시 패스워드 인증
-	public int deleteMember(int memberNumber);//회원탈퇴
-	public int checkId(String id);//회원가입 시 아이디 중복확인
-	public int checkEmail(String MemberEmail);//이메일 중복확인 체크
-	public int checkName(String name);//닉네임 중복 체크
-	public int updateEmail(HashMap<String, Object> map);//이메일 변경
-	public int updateName(HashMap<String, Object> map);//닉네임 변경
-	public int updatePass(HashMap<String, Object> map);
-	public int updateAddress(HashMap<String, Object> map);
-	public int updatePhoneNumber(HashMap<String, Object> map);
+	public int insertMember(MemberVO memberVO);//회원가입
+	public MemberVO getMember(MemberVO memberVO);//회원정보수정창에 띄울 가입된 정보
+	public int updateMember(MemberVO memberVO);//회원정보수정 갱신
+	public String getMemberPass(MemberVO memberVO);//회원타로티 시 패스워드 인증
+	public int deleteMember(MemberVO memberVO);//회원탈퇴
+	public int checkId(String inputid);//회원가입 시 아이디 중복확인
+	public int checkEmail(String inputEmail);//회원가입 시 이메일 중복확인 체크
+	public int checkName(String inputName);//회원가입시 이름 중복 체크
+	public int updateEmail(MemberVO memberVO);//이메일 변경
+	public int updateName(MemberVO memberVO);//닉네임 변경
+	public int updatePass(MemberVO memberVO);
+	public int updateAddress(MemberVO memberVO);
+	public int updatePhoneNumber(MemberVO memberVO);
 	
 	/*관리자*/
 	public AdminVO getAdmin(String memberId);

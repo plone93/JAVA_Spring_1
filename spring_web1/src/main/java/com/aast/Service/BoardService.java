@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.aast.Domain.BoardVO;
 import com.aast.Domain.CountVO;
+import com.aast.Domain.MemberVO;
 
 public interface BoardService {
 	
@@ -58,8 +59,8 @@ public interface BoardService {
 	public List<BoardVO> selectBoardDown(BoardVO boardVO, int page);
 	
 	/*마이페이지*/
-	public List<BoardVO> selectMyWriteList(BoardVO boardVO, int page);
-	public int selectMyWriteCount(BoardVO boardVO);
+	public List<BoardVO> selectMyWriteList(MemberVO memberVO, int page);
+	public int selectMyWriteCount(MemberVO memberVO);
 	
 	/*관리자페이지*/
 }

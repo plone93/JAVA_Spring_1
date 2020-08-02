@@ -22,7 +22,7 @@
  	</update>
  	
  	<select id="getMemberPass" resultType="String">
- 		select memberpass from aast_member
+ 		select memberPass from aast_member
  		where memberNumber = #{memberNumber }
  	</select>
  	

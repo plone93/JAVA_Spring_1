@@ -34,22 +34,21 @@ public class CommentController {
 	HttpServletRequest request;
 	HttpServletResponse response;
 	
-	Model model;
-	
 	//댓글 작성
 	@RequestMapping(value = "writeComment", method = {RequestMethod.GET})
 	public String writeComment(BoardVO boardVO,
 							   CommentVO commentVO,
-							   @RequestParam("Page")int page) {
+							   @RequestParam("Page")int page,
+							   Model model) {
 		String url = "";/*날아갈 주소(경로)*/
 		int result = 0;
-		int commentCount = 0;
+		//int commentCount = 0;
 		
-		commentVO.setBoardId(boardVO);/*commentVO에 boardId를 입력*/
+		commentVO.setBoardId(boardVO.getBoardId());/*commentVO에 boardId를 입력*/
 		result = comment.writeComment(commentVO);/*댓글작성함수 호출, 성공시 SQL에서 resultType= int 1반환*/
 		if(result == 1) {
-			commentCount = comment.getCommentCount(boardVO);/*해당 글에 몇개의 댓글이 작성됐는지 검색해서  VO에 넣음 */
-			comment.updateCommentCount(commentCount, boardVO);
+			boardVO.setCommentCount(comment.getCommentCount(boardVO));/*현재 commentCount를 가져와서*/
+			comment.updateCommentCount(boardVO);/*commentCount를 +1*/
 			model.addAttribute("message", "댓글작성 성공");
 		} else {
 			model.addAttribute("message", "댓글작성 실패");
@@ -66,7 +65,8 @@ public class CommentController {
 	@RequestMapping(value = "editComment", method = {RequestMethod.GET})
 	public String editComment(BoardVO boardVO,
 							  CommentVO commentVO,
-							  @RequestParam("page")int page) {
+							  @RequestParam("page")int page,
+							  Model model) {
 		String url = "";/*날아갈 주소(경로)*/
 		
 		int readCount = board.getReadCount(boardVO);/*해당 board의 조회수를 가져와서 변수에 저장*/
@@ -87,7 +87,8 @@ public class CommentController {
 	@RequestMapping(value = "editedComment", method = {RequestMethod.POST})
 	public String editedComment(BoardVO boardVO,
 								CommentVO commentVO,
-								@RequestParam("page")int page) {
+								@RequestParam("page")int page,
+								Model model) {
 		String url = "";/*날아갈 주소(경로)*/
 		
 		comment.updateComment(commentVO);/*댓글 수정 실행*/
@@ -102,7 +103,8 @@ public class CommentController {
 	//댓글 수정완료
 	@RequestMapping(value = "deleteComment", method = {RequestMethod.POST})
 	public String deleteComment(BoardVO boardVO,
-								CommentVO commentVO,) {
+								CommentVO commentVO,
+								Model model) {
 		
 		String url = "";/*날아갈 주소(경로)*/
 		int result = 0;
@@ -112,16 +114,15 @@ public class CommentController {
 		result = comment.deleteComment(commentVO);
 		
 		if(result == 1) {/*댓글 삭제 성공*/
-			commentCount = comment.getCommentCount(boardNumber);/*현재 commentCount를 가져와서*/
-			comment.updateCommentCount(commentCount, boardNumber);/*commentCount를 +1*/
-			model.addAttribute("message", "댓글삭제 성공");
+			boardVO.setCommentCount(comment.getCommentCount(boardVO));/*현재 commentCount를 가져와서*/
+			comment.updateCommentCount(boardVO);/*commentCount를 +1*/
+			model.addAttribute("message", "댓글삭제 성공");/*jsp로 객체를 전송*/
 		} else {/*댓글 삭제 실패*/
-			model.addAttribute("message", "댓글삭제 실패");
+			model.addAttribute("message", "댓글삭제 실패");/*jsp로 객체를 전송*/
 		}
 		
 		/*jsp로 객체를 전송*/
-		model.addAttribute("boardId", boardId);
-		model.addAttribute("boardNumber", boardNumber);
+		model.addAttribute("boardVO", boardVO);
 		
 		return url;
 	}

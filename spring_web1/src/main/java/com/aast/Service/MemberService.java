@@ -8,18 +8,20 @@ import com.aast.Domain.MemberVO;
 public interface MemberService {
 	/*유저*/
 	public int insertMember(MemberVO memberVO);
-	public MemberVO getMember(String memberId);
-	public int updateMember(MemberVO memberVO, int memberNumber);
-	public String getMemberPass(int memberNumber);
-	public int deleteMember(int memberNumber);
-	public int checkId(String memberId);
-	public int checkEmail(String memberEmail);
-	public int checkName(String memberName);
-	public int updateEmail(int memberNumber, String memberEmail);
-	public int updatePass(int memberNumber, String memberPass);
-	public int updateName(int memberNumber, String memberName);
-	public int updateAddress(int memberNumer, String addressA, String addressB);
-	public int updatePhoneNumber(int memberNumber, String phoneNumber);
+	public MemberVO getMember(MemberVO memberVO);
+	public int updateMember(MemberVO memberVO);
+	public String getMemberPass(MemberVO memberVO);
+	public int deleteMember(MemberVO memberVO);
+	/*회원가입시 체크*/
+	public int checkId(String inputId);
+	public int checkEmail(String inputEmail);
+	public int checkName(String inputName);
+	/*개인정보창에서 업데이트*/
+	public int updateEmail(MemberVO memberVO);
+	public int updatePass(MemberVO memberVO);
+	public int updateName(MemberVO memberVO);
+	public int updateAddress(MemberVO memberVO);
+	public int updatePhoneNumber(MemberVO memberVO);
 	
 	/*관리자*/ 
 	public AdminVO getAdmin(int adminNumber);

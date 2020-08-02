@@ -10,5 +10,8 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<P>  The time on the server is ${number}. </P>
+
+<a class="dropdown-item" href="test?number=${number }">link</a>
 </body>
 </html>

@@ -36,12 +36,11 @@ public class SearchController {
 	HttpServletRequest request;
 	HttpServletResponse response;
 	
-	Model model;
-	
 	/*검색*/
 	@RequestMapping(value = "searchBoard", method = {RequestMethod.POST})
-	public String searchBoard(@RequestParam("boardId")String boardId,
-							  SearchVO searchVO) {
+	public String searchBoard(BoardVO boardVO,
+							  SearchVO searchVO,
+							  Model model) {
 		String url = "";/*날아갈 주소(경로)*/	
 		int page = 1;/*페이지*/
 		int boardCount = 0;/*게시판에 검색된 수*/
@@ -54,20 +53,20 @@ public class SearchController {
 		PageVO pageVO = new PageVO();/*PageVO 생성*/
 		pageVO.setPage(page);/*페이지 저장*/
 		
-		List<BoardVO> boardList = search.search(page, searchVO, boardId);
-		pageVO.setTotalCount(search.searchCount(searchVO, boardId));
+		List<BoardVO> boardList = search.search(page, searchVO, boardVO);
+		pageVO.setTotalCount(search.searchCount(searchVO, boardVO));
 		boardCount = pageVO.getTotalCount();
 		
 		/*jsp로 객체를 전송*/
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("pageVO", pageVO);
-		model.addAttribute("boardId", boardId);
+		model.addAttribute("boardId", boardVO);
 			
 		/*최상단 공지사항*/
 		String noticeBoardId = "";
-		List<BoardVO> noticeBoardList = board.selectAllBoardNotice(page, noticeBoardId);
-		model.addAttribute("noticeBoardList", noticeBoardList);
+		//List<BoardVO> noticeBoardList = board.selectAllBoardNotice(page, noticeBoardId);
+		//model.addAttribute("noticeBoardList", noticeBoardList);
 		
 		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
 		if(request.getParameter("message") != null) {

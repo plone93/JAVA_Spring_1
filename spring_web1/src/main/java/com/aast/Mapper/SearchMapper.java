@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.aast.Domain.BoardVO;
 import com.aast.Domain.MemberVO;
+import com.aast.Domain.SearchVO;
 
 public interface SearchMapper {
 	/*일반게시판 검색*/
@@ -29,9 +30,9 @@ public interface SearchMapper {
 	
 	/*통합 검색*/
 	public List<BoardVO> searchTotal(HashMap<String, Object> map);
-	public int searchTotalCount(HashMap<String, Object> map);
+	public int searchTotalCount(SearchVO searchVO);
 	
 	/*회원 검색*/
 	public List<MemberVO> searchMember(HashMap<String, Object> map);
-	public int searchMemberCount(HashMap<String, Object> map);
+	public int searchMemberCount(SearchVO searchVO);
 }
