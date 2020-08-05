@@ -1,0 +1,83 @@
+-스프링
+
+@AllArgsConstructor : 하나의 클래스 안에 있는 변수 전부 빈 자동 생성
+
+1)root-context.xml>mybatis-spring:scan에러
+=Namespace에서 mybatis-spring 체크
+
+2)root-context.xml>context:component-scan(classpath를 스캔하여 @annotation이 명시된 요소들을 스프링 빈으로 등록)에러
+xmlns:context="http://www.springframework.org/schema/context" 추가
+
+3)lombook(룸북) 설치방법
+다운>cmd>파일이 있는 디렉터리로 이동 java -jar lombok.jar 실행
+
+4)@Setter(onMethod_ = {@Autowired})에서 onMethod_ 에러
+jdk버전 일치
+롬북 설치 확인
+메이븐 업데이트
+<scope>provided</scope> 확인
+
+5)xml파일 예외 주석은 Ctrl+Shift+?   <!-- -->
+
+6)DataSouce테스트에서 context:component-scan' 요소에 대한 선언을 찾을 수 없습니다.에러
+root-context.xml에서 아래 코드 추가 
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+
+7)Session과Cookie의 차이점
+세션은 서버에 남고 쿠기는 사용자에게 남는다
+그래서 세션은 보안이 좋지만 많으면 서버부하걸려서 로그인 등에 쓰이고
+쿠키는 보안이 약하지만 서버부담이 적어서 추천,비추천 같은 보안과 관계 없는 곳에 씀
+
+8)org.springframework.web.servlet.PageNotFound - No mapping found for HTTP request with URI [/] in DispatcherServlet with name 'appServlet'
+servlet-context.xml  >   <context:component-scan base-package="com.aast.www" />
+
+9)Service에서 변수는 Bean으로 등록못함
+
+-서버 문제
+ Origin 서버가 대상 리소스를 위한 현재의 representation을 찾지 못했거나, 그것이 존재하는지를 밝히려 하지 않습니다.
+1.메뉴-Project-clean
+2.서버-Modules-Path경로 수정
+3.404에러 : 경로문제
+4.프로젝트 우클릭>Propeties>Java Vuild Path> Libraries>Add Library>Server RunTime> 추가
+
+10)스프링 Bean등록은 객체만 가능하고 변수는 안됨
+1.HashMap, int, String, Model, MultipartFile 등등은 불가
+2.스프링은 자동생성 @을 사용했을 경우 멤버필드에 선언할 수 있는건 객체만 가능
+
+11)XML에 여러개의 변수 넘기는 방법(원칙상 1개)
+1.HashMap으로 감싸서 넘기기
+2.VO객체로 감싸서 넘기기
+3.updateName(@Param("name")String name, @Param("number")String number)로 넘기기
+
+12) ORA-28001 : the password has expired (패스워드 만료)
+1.CMD창 열기
+2.sqlplus conn as system(ID)
+3.비밀번호 입력
+4.alter user system(ID) account unlock;
+5.alter user sysyem(ID) identified by 1234(PASS);
+
+13)형변환(서버로 데이터를 보낼때는 문자열이여야 함)
+1. 백엔드에서 int변수를 jsp에 보내고 다시 백엔드로 보내면 String, int 둘다로 받기 가능
+2. 백엔드에서 String변수("111")숫자열을 jsp에 보내고 다시 백엔드로 보내면 int로도 받아짐
+3. 백엔드에서 String변수("a")문자열을 jsp에 보내고 다시 백엔드로 보내면 String으로만 받아짐 int 불가
+4.Request.getPamameter()는 String 형태로만 받음, 즉 vo.set을 할때  vo속성이 int타입이면 Integer.parseInt로 형변환 필요
+5.@RequestParam()은 형변환 필요없이 자동적으로 형변환이 이루어짐
+
+500 에러
+1)빈 문제
+1.Controller에 Path경로가 중복된 것이 있음
+2.Service객체에 @Service 어노테이션이 등록안됨
+3.Mapper 메서드명과  Mapper.xml에 등록된 id명이 일치하지 않거나 사용되지 않는 것이 있음
+4.Mapper.xml에 등록된 namespace경로or파일명이 일치하지않음
+
+
+
+
+프론트 엔드
+1.서버에서 보낸 VO객체는 프로퍼티에 ""가 없어서  VO통째로 서버에 보낼수 없고
+따로따로 값을 입력해서 새롭게 객체를 만들어서 보내야함
+
+2. JSON.stringify(변수) : 객체를 문자열화 시킴
+
+3. @RequestBody 
+문자열(리스트)를 받을때는 인수란에 @RequestBody BoardVO boardVO 적어야함

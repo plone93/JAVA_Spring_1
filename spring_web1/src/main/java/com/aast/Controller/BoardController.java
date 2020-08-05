@@ -41,6 +41,7 @@ public class BoardController {
 	HttpServletRequest request;
 	HttpServletResponse response;
 	
+	
 //	/Model model;
 	
 	

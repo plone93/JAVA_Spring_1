@@ -1,0 +1,56 @@
+parameterType="hashmap"
+
+HashMap<String, Object> map = new HashMap<String, Object>();
+HashMap<String, Object> map
+#{searchVO.keyWord}
+
+
+
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+
+url & ? 주소 바꾸기
+
+
+DDinside_comment count(*)를 먼저 업데이트 함
+
+글 작성후 페이지 유실 // 파일 위치
+
+
+Mybatis Query 성공시
+
+Select - Select문에 해당하는결과
+
+Insert - 1 (여러개일경우도 1)
+
+Update - Update된 행의 개수 반환 (없다면 0)
+
+delete - Delete된 행의개수 (없다면 0)
+
+
+
+Ibatis 성공시
+
+select - Select문에 해당 결과
+
+insert - null
+
+update - 1
+
+delete - delete된 행의개수
+
+
+${searchList.num }
+
+
+mmmmmmmmmmmmmmmmm PHP
+
+http://plone931206.dothome.co.kr/
+http://plone931206.dothome.co.kr/myadmin/
+
+닷홈
+DB : ID

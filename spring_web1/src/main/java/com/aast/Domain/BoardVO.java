@@ -20,7 +20,7 @@ public class BoardVO {
 	private int down;
 	private int report;
 	private int hitCount;
-	private int PageStartNumber;
-	private int PageEndNumber;
+	private int pageStartNumber;
+	private int pageEndNumber;
 	private Timestamp writeDate;
 }

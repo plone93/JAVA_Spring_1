@@ -1,8 +1,9 @@
-create table aast(
+create table aast_board(
 	boardNumber number(30) primary key,
 	boardId varchar2(100) not null,
 	memberId varchar2(100) not null,
 	memberName varchar2(100) not null,
+	writer varchar2(100),
 	title varchar2(100) not null,
 	content varchar2(1000) not null,
 	image varchar2(100),
@@ -11,6 +12,9 @@ create table aast(
 	up number(30) default 0,
 	down number(30) default 0,
 	report number(30) default 0,
+	hitCount number(30) default 0,
+	pageStartNumber number(30) default 0,
+	pageEndNumber number(30) default 0,
 	writeDate date default sysdate
 	);
 create sequence aast_seq start with 1 increment by 1;
